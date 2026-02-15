@@ -4,119 +4,148 @@
   <base target="_top">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f4f7f6; }
-    .main-card { max-width: 550px; margin: 20px auto; border-radius: 15px; border: none; }
-    .header-custom { background: #2e7d32; color: white; padding: 20px; border-radius: 15px 15px 0 0; text-align: center; }
+    body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
+    .main-card { max-width: 500px; margin: 20px auto; border: none; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .header-custom { background: linear-gradient(135deg, #2e7d32, #4caf50); color: white; padding: 25px; border-radius: 20px 20px 0 0; text-align: center; }
     .hidden { display: none; }
-    .info-box { background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 12px; margin-bottom: 20px; border-radius: 4px; }
-    #gps-status { font-size: 0.85em; font-weight: bold; }
+    .info-box { background: #ffffff; border-left: 5px solid #2e7d32; padding: 15px; margin-bottom: 20px; border-radius: 8px; font-size: 0.9rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+    .btn-success { background-color: #2e7d32; border: none; padding: 12px; border-radius: 10px; font-weight: 600; }
+    .btn-success:hover { background-color: #1b5e20; }
+    #gps-status { font-weight: bold; }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div id="login-section" class="card main-card shadow-sm">
-    <div class="header-custom"><h4>Ruang Cahaya Login</h4></div>
+<div class="container p-2">
+  <div id="login-section" class="card main-card">
+    <div class="header-custom">
+      <h3 class="mb-0">Ruang Cahaya</h3>
+      <p class="small mb-0 opacity-75">Sistem Jurnal Ramadhan</p>
+    </div>
     <div class="card-body p-4">
-      <input type="text" id="user" class="form-control mb-3" placeholder="Username">
-      <input type="password" id="pin" class="form-control mb-3" placeholder="PIN">
-      <button class="btn btn-success w-100" onclick="login()">Masuk</button>
-      <p id="msg" class="text-danger mt-3 text-center small"></p>
+      <div class="mb-3">
+        <label class="form-label small fw-bold">Username</label>
+        <input type="text" id="user" class="form-control form-control-lg" placeholder="Masukkan username">
+      </div>
+      <div class="mb-4">
+        <label class="form-label small fw-bold">PIN</label>
+        <input type="password" id="pin" class="form-control form-control-lg" placeholder="Masukkan 5 digit PIN">
+      </div>
+      <button class="btn btn-success w-100 mb-2" onclick="login()">Masuk ke Sistem</button>
+      <div id="msg" class="text-danger text-center small"></div>
     </div>
   </div>
 
-  <div id="form-section" class="card main-card shadow-sm hidden">
+  <div id="form-section" class="card main-card hidden">
     <div class="header-custom">
-      <h5 id="user-display" class="mb-0">Halo, </h5>
+      <h5 id="user-display" class="mb-0">Selamat Datang</h5>
     </div>
     <div class="card-body p-4">
+      
       <div class="info-box">
-        <strong>🕒 Jadwal Sholat:</strong> <span id="jadwal-info">...</span><br>
-        <strong>📍 Status Lokasi:</strong> <span id="gps-status" class="text-muted">Mencari GPS...</span>
+        <div class="mb-2"><strong>🕒 Jadwal Sholat:</strong> <span id="jadwal-info" class="text-muted">Memuat...</span></div>
+        <div><strong>📍 GPS:</strong> <span id="gps-status" class="text-warning">Mencari Lokasi...</span></div>
       </div>
 
       <form id="jurnalForm">
-        <input type="hidden" id="gps_coords" value="Lokasi tidak diizinkan">
+        <input type="hidden" id="gps_coords" value="Lokasi tidak aktif">
 
-        <label class="fw-bold mb-1">Kegiatan Hari Ini</label>
-        <textarea id="kegiatan" class="form-control mb-3" rows="2" placeholder="Contoh: Tadarus, Sholat, Sedekah"></textarea>
+        <div class="mb-3">
+          <label class="fw-bold small mb-1">Kegiatan Utama Hari Ini</label>
+          <textarea id="kegiatan" class="form-control" rows="2" placeholder="Tadarus, Sholat Berjamaah, dll..." required></textarea>
+        </div>
 
-        <label class="fw-bold text-success mb-1">Kuis Hari Ini</label>
-        <p class="text-muted small mb-2" id="kuis-info">Memuat soal...</p>
-        <input type="text" id="jawaban_kuis" class="form-control mb-3" placeholder="Jawaban kuis">
+        <div class="mb-3">
+          <label class="fw-bold text-success small mb-1">Kuis Ramadhan</label>
+          <div class="p-2 border rounded bg-light mb-2 small" id="kuis-info">Memuat soal...</div>
+          <input type="text" id="jawaban_kuis" class="form-control" placeholder="Tulis jawabanmu">
+        </div>
 
-        <label class="fw-bold mb-1">Foto Kegiatan</label>
-        <input type="file" id="foto" class="form-control mb-3" accept="image/*">
+        <div class="mb-3">
+          <label class="fw-bold small mb-1">Foto Bukti Kegiatan</label>
+          <input type="file" id="foto" class="form-control" accept="image/*">
+        </div>
 
-        <label class="fw-bold mb-1">Catatan Tambahan</label>
-        <textarea id="catatan" class="form-control mb-4" rows="2" placeholder="Tulis catatan atau pesan di sini (opsional)"></textarea>
+        <div class="mb-4">
+          <label class="fw-bold small mb-1">Catatan Tambahan (Opsional)</label>
+          <textarea id="catatan" class="form-control" rows="2" placeholder="Apa yang kamu pelajari hari ini?"></textarea>
+        </div>
         
-        <button type="button" id="btnSubmit" class="btn btn-success w-100" onclick="upload()">Kirim Laporan</button>
+        <button type="button" id="btnSubmit" class="btn btn-success w-100" onclick="upload()">Kirim Laporan Harian</button>
       </form>
     </div>
   </div>
 </div>
 
 <script>
-  let session = {};
+  let sessionData = {};
 
-  // Fungsi Login
+  // 1. LOGIN
   function login() {
     const u = document.getElementById('user').value;
     const p = document.getElementById('pin').value;
+    const msg = document.getElementById('msg');
+    
+    if(!u || !p) { msg.innerText = "Isi username dan PIN!"; return; }
+    
+    msg.innerText = "Mengecek identitas...";
+    
     google.script.run.withSuccessHandler(res => {
       if(res.success) {
-        session = res;
+        sessionData = res;
         document.getElementById('login-section').classList.add('hidden');
         document.getElementById('form-section').classList.remove('hidden');
-        document.getElementById('user-display').innerText = "Halo, " + res.nama;
+        document.getElementById('user-display').innerText = "Ahlan, " + res.nama;
         document.getElementById('jadwal-info').innerText = res.jadwal;
         document.getElementById('kuis-info').innerText = res.kuis;
         
-        // Panggil deteksi lokasi setelah login berhasil
-        initiateGPS();
+        // Mulai deteksi GPS setelah login
+        ambilGPS();
       } else {
-        document.getElementById('msg').innerText = res.message;
+        msg.innerText = res.message;
       }
     }).prosesLogin(u, p);
   }
 
-  // Fungsi Mendapatkan Koordinat GPS
-  function initiateGPS() {
-    const gpsStatus = document.getElementById('gps-status');
+  // 2. DETEKSI GPS
+  function ambilGPS() {
+    const stat = document.getElementById('gps-status');
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          document.getElementById('gps_coords').value = lat + "," + lon;
-          gpsStatus.innerText = "Lokasi Terkunci ✅";
-          gpsStatus.className = "text-success";
+        (pos) => {
+          const latLon = pos.coords.latitude + "," + pos.coords.longitude;
+          document.getElementById('gps_coords').value = latLon;
+          stat.innerText = "Lokasi Terkunci ✅";
+          stat.className = "text-success";
         },
-        (error) => {
-          gpsStatus.innerText = "Gagal: Berikan Izin Lokasi ❌";
-          gpsStatus.className = "text-danger";
+        (err) => {
+          stat.innerText = "Akses Lokasi Ditolak ❌";
+          stat.className = "text-danger";
         },
-        { enableHighAccuracy: true }
+        { enableHighAccuracy: true, timeout: 10000 }
       );
     } else {
-      gpsStatus.innerText = "Browser tidak mendukung GPS";
+      stat.innerText = "Browser tidak dukung GPS";
     }
   }
 
-  // Fungsi Upload Data
+  // 3. UPLOAD DATA
   function upload() {
     const btn = document.getElementById('btnSubmit');
-    btn.disabled = true; 
-    btn.innerText = "Mengirim...";
+    const kegiatan = document.getElementById('kegiatan').value;
+    
+    if(!kegiatan) { alert("Kegiatan tidak boleh kosong!"); return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Mengirim...';
     
     const file = document.getElementById('foto').files[0];
     const payload = {
-      nama: session.nama,
-      kegiatan: document.getElementById('kegiatan').value,
+      nama: sessionData.nama,
+      kegiatan: kegiatan,
       poin: document.getElementById('jawaban_kuis').value,
       catatan: document.getElementById('catatan').value,
-      lokasi: document.getElementById('gps_coords').value, // Mengirim data GPS
+      lokasi: document.getElementById('gps_coords').value,
       fileData: null,
       fileName: null
     };
@@ -126,18 +155,21 @@
       reader.onload = function(e) {
         payload.fileData = e.target.result;
         payload.fileName = file.name;
-        google.script.run.withSuccessHandler(done).simpanAktivitas(payload);
+        kirim(payload);
       };
       reader.readAsDataURL(file);
     } else {
-      google.script.run.withSuccessHandler(done).simpanAktivitas(payload);
+      kirim(payload);
     }
   }
 
-  function done(m) {
-    alert(m);
-    location.reload();
+  function kirim(p) {
+    google.script.run.withSuccessHandler(res => {
+      alert(res);
+      location.reload(); // Refresh halaman setelah sukses
+    }).simpanAktivitas(p);
   }
 </script>
+
 </body>
 </html>
