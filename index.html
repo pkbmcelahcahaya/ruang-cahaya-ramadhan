@@ -46,7 +46,7 @@
             
             <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-[0_0_30px_rgba(212,175,55,0.15)] text-center border-t-8 border-cahaya-emas relative z-10">
                 <div class="flex justify-center mb-2">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo_pkbm.png" alt="Logo PKBM" class="h-20 w-auto object-contain">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" alt="Logo PKBM" class="h-20 w-auto object-contain">
                 </div>
                 
                 <p class="text-cahaya-emas text-xs font-bold tracking-widest uppercase mb-1">Marhaban Ya Ramadhan</p>
@@ -70,9 +70,9 @@
                 <div class="mt-8 pt-6 border-t border-gray-100">
                     <p class="text-[10px] text-gray-400 mb-3 font-semibold uppercase tracking-wider">Kolaborasi Kebaikan</p>
                     <div class="flex justify-center items-center gap-4 opacity-60 hover:opacity-100 transition-opacity">
-                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/komunitasngejah.png" class="h-5 grayscale hover:grayscale-0 transition-all">
-                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo_kangruli.png" class="h-5 grayscale hover:grayscale-0 transition-all">
-                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo%20tbm%20aiueo.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/komunitasngejah.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_kangruli.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-5 grayscale hover:grayscale-0 transition-all">
                     </div>
                 </div>
             </div>
@@ -187,9 +187,9 @@
             <footer class="mt-auto text-center pb-4">
                 <p class="text-[10px] text-gray-400 mb-2 uppercase tracking-widest font-semibold">Didukung Penuh Oleh</p>
                 <div class="flex justify-center items-center gap-4 opacity-70 grayscale bg-white p-3 mx-8 rounded-2xl border border-gray-100 shadow-sm">
-                    <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logokangruli.png" class="h-5">
-                    <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo_Komunitas_ngejah.png" class="h-5">
-                    <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-5">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_kangruli.png" class="h-5">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/komunitasngejah.png" class="h-5">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-5">
                 </div>
             </footer>
         </div>
@@ -207,10 +207,8 @@
     </div>
 
     <script>
-        // MASUKKAN URL GOOGLE APPS SCRIPT ANDA DI BAWAH INI
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyTmrDMMTZ8amcNs6sYsvLWFCEpoTBA4MSIjHXfG6iflyFblN8SPXeDQG8BjbLBSaARyA/exec"; 
 
-        // 1. SISTEM LOGIN & HAK AKSES
         window.onload = () => {
             const activeUser = JSON.parse(localStorage.getItem('userRC'));
             if (activeUser) masukKeAplikasi(activeUser);
@@ -248,9 +246,8 @@
         function masukKeAplikasi(user) {
             document.getElementById('login-container').classList.add('hidden');
             document.getElementById('app-container').classList.remove('hidden');
-            document.getElementById('app-container').classList.add('flex'); // Kembalikan display flex
+            document.getElementById('app-container').classList.add('flex');
             
-            // Format Nama: Huruf kapital di awal kata
             const namaFormat = user.nama.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
             document.getElementById('namaHeader').textContent = namaFormat;
             document.getElementById('namaWargaForm').value = user.nama;
@@ -266,7 +263,6 @@
 
         function keluar() { localStorage.removeItem('userRC'); location.reload(); }
 
-        // 2. SISTEM SETOR IBADAH
         function toggleFormSetor() {
             const form = document.getElementById('form-setor-section');
             if(form.classList.contains('hidden')) {
@@ -297,25 +293,20 @@
             });
         });
 
-        // 3. SISTEM NOTIFIKASI DENGAN ANIMASI
         const modal = document.getElementById('notifModal');
         const modalContent = document.getElementById('notifContent');
 
         function toggleNotifikasi() {
             if (modal.classList.contains('hidden')) {
-                // Buka Modal
                 modal.classList.remove('hidden');
                 document.getElementById('notifBadge').classList.add('hidden');
-                // Trigger animasi masuk
                 setTimeout(() => {
                     modal.classList.remove('opacity-0');
                     modalContent.classList.remove('translate-y-full');
                 }, 10);
             } else {
-                // Tutup Modal
                 modal.classList.add('opacity-0');
                 modalContent.classList.add('translate-y-full');
-                // Sembunyikan setelah animasi selesai
                 setTimeout(() => {
                     modal.classList.add('hidden');
                 }, 300);
