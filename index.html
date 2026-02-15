@@ -72,6 +72,20 @@
 
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+    /* Logo Animation */
+    .logo-img {
+      width: 120px;
+      height: auto;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
     /* Glass Effect Box */
     .glass-box {
       background: rgba(255, 255, 255, 0.7);
@@ -108,6 +122,23 @@
       transition: transform 0.2s;
     }
     .btn-primary-gradient:active { transform: scale(0.98); }
+
+    /* Hadis Card */
+    .hadis-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hadis-quote-icon {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 3rem;
+      color: rgba(255,255,255,0.1);
+    }
 
     /* Image Preview */
     .img-preview-container {
@@ -164,11 +195,13 @@
     
     <div id="page-login" class="d-flex flex-column h-100">
       <div class="header-app text-center" style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <div class="bg-white rounded-circle d-flex align-items-center justify-content-center mb-3 shadow" style="width: 80px; height: 80px;">
-          <i class="fas fa-mosque fa-2x" style="color: var(--primary-color)"></i>
+        
+        <div class="mb-3">
+          <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" alt="Logo PKBM" class="logo-img">
         </div>
+        
         <h2 class="fw-bold mb-0">Ruang Cahaya</h2>
-        <p class="opacity-75 small">Portal Aktivitas Santri</p>
+        <p class="opacity-75 small">Portal Aktivitas PKBM Celah Cahaya</p>
       </div>
       
       <div class="p-4 bg-white" style="flex: 2; border-radius: 30px 30px 0 0; margin-top: -20px;">
@@ -191,7 +224,7 @@
         <div id="login-msg" class="alert alert-danger mt-3 hidden small text-center border-0 bg-danger-subtle text-danger rounded-3"></div>
         
         <div class="text-center mt-4 text-muted small">
-          &copy; 2024 Ruang Cahaya App
+          &copy; 2024 PKBM Celah Cahaya
         </div>
       </div>
     </div>
@@ -205,13 +238,18 @@
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
         </div>
-        <h4 class="fw-bold mb-0">Assalamu'alaikum,</h4>
-        <h2 class="fw-bold" id="display-name">Santri</h2>
+        <div class="d-flex align-items-center">
+             <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" style="width: 40px; margin-right: 10px; filter: brightness(0) invert(1);">
+            <div>
+                <h4 class="fw-bold mb-0" style="font-size: 1rem;">Assalamu'alaikum,</h4>
+                <h2 class="fw-bold mb-0" style="font-size: 1.5rem;" id="display-name">Santri</h2>
+            </div>
+        </div>
       </div>
 
       <div class="p-4" style="margin-top: -40px; border-radius: 30px 30px 0 0; background: white; flex: 1; overflow-y: auto;">
         
-        <div class="glass-box shadow-sm mb-4" style="background: #f0fdfa; border: 1px solid #ccfbf1;">
+        <div class="glass-box shadow-sm mb-3" style="background: #f0fdfa; border: 1px solid #ccfbf1;">
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <span class="d-block text-muted small">Jam Sekarang</span>
@@ -222,6 +260,15 @@
               <div id="info-jadwal" class="small fw-bold text-secondary">Memuat...</div>
             </div>
           </div>
+        </div>
+
+        <div class="card hadis-card shadow-sm mb-4">
+            <div class="card-body position-relative">
+                <i class="fas fa-quote-right hadis-quote-icon"></i>
+                <h6 class="fw-bold text-warning small mb-2"><i class="fas fa-star me-1"></i> Mutiara Hadis</h6>
+                <p class="fst-italic mb-2 small" id="hadis-text" style="line-height: 1.6;">"Memuat hadis..."</p>
+                <div class="text-end small opacity-75 fw-bold" id="hadis-riwayat">-</div>
+            </div>
         </div>
 
         <form onsubmit="event.preventDefault(); handleUpload();">
@@ -280,6 +327,24 @@
   // ============================================
 
   let sessionUser = "";
+
+  // --- DATABASE HADIS SEDERHANA ---
+  const databaseHadis = [
+    { text: "Kebersihan adalah sebagian dari iman.", riwayat: "HR. Muslim" },
+    { text: "Senyummu di hadapan saudaramu adalah sedekah.", riwayat: "HR. Tirmidzi" },
+    { text: "Barangsiapa yang menempuh jalan untuk mencari ilmu, maka Allah akan mudahkan baginya jalan menuju surga.", riwayat: "HR. Muslim" },
+    { text: "Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya.", riwayat: "HR. Ahmad" },
+    { text: "Tangan di atas lebih baik daripada tangan di bawah.", riwayat: "HR. Bukhari & Muslim" },
+    { text: "Tidak akan masuk surga orang yang memutuskan tali silaturahmi.", riwayat: "HR. Bukhari" },
+    { text: "Shalat adalah tiang agama.", riwayat: "HR. Baihaqi" }
+  ];
+
+  function loadRandomHadis() {
+    const random = Math.floor(Math.random() * databaseHadis.length);
+    const selected = databaseHadis[random];
+    document.getElementById('hadis-text').innerText = `"${selected.text}"`;
+    document.getElementById('hadis-riwayat').innerText = selected.riwayat;
+  }
 
   // --- JAM DIGITAL & TANGGAL ---
   function updateClock() {
@@ -352,6 +417,9 @@
       document.getElementById('info-jadwal').innerText = result.jadwal;
       document.getElementById('soal-kuis').innerText = result.kuis;
       
+      // Load Hadis saat berhasil login
+      loadRandomHadis();
+
       // Animasi Pindah Halaman
       document.getElementById('page-login').classList.add('hidden');
       document.getElementById('page-form').classList.remove('hidden');
@@ -365,7 +433,7 @@
   // --- LOGOUT ---
   function handleLogout() {
     if(confirm("Yakin ingin keluar?")) {
-      location.reload(); // Refresh halaman untuk reset semua
+      location.reload(); 
     }
   }
 
@@ -410,15 +478,12 @@
     toggleLoading(false);
     
     if(result.success) {
-      // Tampilkan Sweet Alert Sederhana (Native)
       alert("✅ Alhamdulillah! Laporan berhasil dikirim.");
       
       // Reset Form
       document.getElementById('kegiatan').value = "";
       document.getElementById('jawaban').value = "";
       document.getElementById('foto').value = "";
-      
-      // Reset Preview
       document.getElementById('preview-img').style.display = 'none';
       document.getElementById('placeholder-icon').style.display = 'block';
     } else {
