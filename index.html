@@ -1,225 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <base target="_top">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruang Cahaya</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .main-card { max-width: 500px; margin: 30px auto; border-radius: 15px; border: none; overflow: hidden; }
-    .header-custom { background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%); color: white; padding: 25px; text-align: center; }
+    body { background-color: #f0f2f5; font-family: sans-serif; }
+    .main-card { max-width: 480px; margin: 20px auto; border-radius: 15px; border:none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .header-app { background: linear-gradient(to right, #11998e, #38ef7d); color: white; padding: 20px; border-radius: 15px 15px 0 0; text-align: center; }
     .hidden { display: none !important; }
-    .info-box { background: #e8f5e9; border-left: 5px solid #2e7d32; padding: 15px; margin-bottom: 20px; border-radius: 4px; font-size: 0.9em; }
     
     /* Loading Overlay */
-    #loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+    #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
   </style>
 </head>
 <body>
 
-<div id="loading-overlay" class="hidden">
-  <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;"></div>
-  <p class="mt-2 fw-bold text-success" id="loading-text">Memproses...</p>
-</div>
-
-<div class="container">
-  
-  <div id="login-section" class="card main-card shadow">
-    <div class="header-custom">
-      <h3><i class="fas fa-mosque"></i> Ruang Cahaya</h3>
-      <p class="mb-0 small">Silakan masuk untuk melapor</p>
-    </div>
-    <div class="card-body p-4">
-      <div class="mb-3">
-        <label class="form-label">Username</label>
-        <input type="text" id="user" class="form-control" placeholder="Masukkan username">
-      </div>
-      <div class="mb-4">
-        <label class="form-label">PIN</label>
-        <input type="password" id="pin" class="form-control" placeholder="****">
-      </div>
-      <button class="btn btn-success w-100 py-2 fw-bold" onclick="login()">MASUK</button>
-      <div id="msg" class="alert alert-danger mt-3 hidden small text-center"></div>
-    </div>
+  <div id="loading" class="hidden">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="mt-2 fw-bold text-success">Menghubungkan ke Server...</p>
   </div>
 
-  <div id="form-section" class="card main-card shadow hidden">
-    <div class="header-custom py-3">
-      <h5 id="user-display" class="mb-0 fw-bold">Halo, User</h5>
-    </div>
-    <div class="card-body p-4">
-      
-      <div class="info-box shadow-sm">
-        <div class="mb-1"><i class="far fa-clock"></i> <strong>Jadwal:</strong> <span id="jadwal-info">-</span></div>
-        <div><i class="fas fa-map-marker-alt"></i> <strong>Lokasi:</strong> <span id="gps-status" class="text-warning">Mencari GPS...</span></div>
+  <div class="container">
+    
+    <div id="page-login" class="card main-card">
+      <div class="header-app">
+        <h3>Ruang Cahaya</h3>
+        <small>Portal Laporan Santri</small>
       </div>
-
-      <form id="jurnalForm">
-        <input type="hidden" id="gps_coords" value="Lokasi tidak diizinkan">
-
+      <div class="card-body p-4">
         <div class="mb-3">
-          <label class="fw-bold mb-1">Kegiatan Hari Ini</label>
-          <textarea id="kegiatan" class="form-control" rows="2" placeholder="Contoh: Tadarus Al-Mulk, Sholat Dhuha"></textarea>
+          <label>Username</label>
+          <input type="text" id="username" class="form-control" placeholder="user...">
         </div>
-
         <div class="mb-3">
-          <label class="fw-bold text-success mb-1">Kuis Harian</label>
-          <div class="p-2 bg-light border rounded mb-2 small text-muted fst-italic" id="kuis-info">Memuat soal...</div>
-          <input type="text" id="jawaban_kuis" class="form-control" placeholder="Jawaban Anda...">
+          <label>PIN</label>
+          <input type="password" id="pin" class="form-control" placeholder="****">
         </div>
+        <button onclick="handleLogin()" class="btn btn-success w-100 fw-bold">MASUK</button>
+        <div id="login-msg" class="text-danger small mt-2 text-center"></div>
+      </div>
+    </div>
 
-        <div class="mb-3">
-          <label class="fw-bold mb-1">Foto Dokumentasi</label>
-          <input type="file" id="foto" class="form-control" accept="image/*">
-          <div class="form-text small">Maksimal 2MB agar upload lancar.</div>
-        </div>
-
-        <div class="mb-4">
-          <label class="fw-bold mb-1">Catatan Tambahan (Opsional)</label>
-          <textarea id="catatan" class="form-control" rows="2" placeholder="Pesan atau kendala..."></textarea>
-        </div>
+    <div id="page-form" class="card main-card hidden">
+      <div class="header-app py-3">
+        <h5 id="display-name" class="mb-0">Halo, User</h5>
+      </div>
+      <div class="card-body p-4">
         
-        <button type="button" id="btnSubmit" class="btn btn-success w-100 py-2 fw-bold" onclick="upload()">
-          <i class="fas fa-paper-plane"></i> KIRIM LAPORAN
-        </button>
-      </form>
-    </div>
-  </div>
+        <div class="alert alert-success py-2 small">
+          <i class="fas fa-calendar-alt"></i> <span id="info-jadwal">-</span>
+        </div>
 
-</div>
+        <div class="mb-3">
+          <label class="fw-bold">Kegiatan</label>
+          <textarea id="kegiatan" class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="fw-bold">Kuis: <span id="soal-kuis" class="fw-normal fst-italic">...</span></label>
+          <input type="text" id="jawaban" class="form-control" placeholder="Jawaban...">
+        </div>
+
+        <div class="mb-3">
+          <label class="fw-bold">Foto</label>
+          <input type="file" id="foto" class="form-control">
+          <small class="text-muted" style="font-size:10px">Max 2MB</small>
+        </div>
+
+        <div class="mb-3">
+          <label class="fw-bold">Lokasi</label>
+          <input type="text" id="gps-val" class="form-control form-control-sm mb-1" readonly value="Mencari...">
+          <button onclick="getGPS()" class="btn btn-sm btn-outline-secondary w-100">Refresh GPS</button>
+        </div>
+
+        <button onclick="handleUpload()" class="btn btn-success w-100 fw-bold">KIRIM LAPORAN</button>
+      </div>
+    </div>
+
+  </div>
 
 <script>
-  let session = {};
+  // ============================================
+  // MASUKKAN URL DEPLOYMENT APPS SCRIPT DI SINI
+  // ============================================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWkaxsdR6dtjHocLIcpaTH7SJ4b4as7e1fzc4HV7ggiJ7swuDaI2yd7Y2SQ44-5aGjiw/exec"; 
+  // ============================================
 
-  // --- UI HELPER ---
-  function showLoading(show, text="Memproses...") {
-    const loader = document.getElementById('loading-overlay');
-    document.getElementById('loading-text').innerText = text;
-    if(show) loader.classList.remove('hidden');
-    else loader.classList.add('hidden');
+  let sessionUser = "";
+
+  function toggleLoading(show) {
+    const el = document.getElementById('loading');
+    if(show) el.classList.remove('hidden'); else el.classList.add('hidden');
   }
 
-  function showError(msg) {
-    const el = document.getElementById('msg');
-    el.innerText = msg;
-    el.classList.remove('hidden');
-  }
-
-  // --- LOGIN ---
-  function login() {
-    const u = document.getElementById('user').value;
-    const p = document.getElementById('pin').value;
-    
-    if(!u || !p) { showError("Username dan PIN harus diisi"); return; }
-    
-    showLoading(true, "Sedang Login...");
-    document.getElementById('msg').classList.add('hidden');
-
-    google.script.run
-      .withSuccessHandler(res => {
-        showLoading(false);
-        if(res.success) {
-          session = res;
-          document.getElementById('login-section').classList.add('hidden');
-          document.getElementById('form-section').classList.remove('hidden');
-          document.getElementById('user-display').innerText = "Assalamu'alaikum, " + res.nama;
-          document.getElementById('jadwal-info').innerText = res.jadwal;
-          document.getElementById('kuis-info').innerText = res.kuis;
-          
-          initiateGPS(); // Mulai cari GPS
-        } else {
-          showError(res.message);
-        }
-      })
-      .withFailureHandler(err => {
-        showLoading(false);
-        showError("Server Error: " + err.message);
-      })
-      .prosesLogin(u, p);
-  }
-
-  // --- GPS ---
-  function initiateGPS() {
-    const gpsStatus = document.getElementById('gps-status');
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          document.getElementById('gps_coords').value = lat + ", " + lon;
-          gpsStatus.innerHTML = "Terkunci <span class='text-success'>&#10004;</span>";
-          gpsStatus.className = "text-success fw-bold";
-        },
-        (error) => {
-          gpsStatus.innerText = "Gagal (Izin Ditolak)";
-          gpsStatus.className = "text-danger";
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    } else {
-      gpsStatus.innerText = "Browser tidak support GPS";
+  // --- 1. FUNGSI FETCH KE GOOGLE APPS SCRIPT ---
+  // Kita menggunakan 'text/plain' agar tidak terkena CORS Preflight
+  async function postData(payload) {
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      return await response.json();
+    } catch (error) {
+      alert("Gagal koneksi: " + error);
+      return { success: false };
     }
   }
 
-  // --- UPLOAD ---
-  function upload() {
-    // Validasi sederhana
-    const kegiatan = document.getElementById('kegiatan').value;
-    if(!kegiatan) { alert("Mohon isi kolom kegiatan!"); return; }
+  // --- 2. LOGIN ---
+  async function handleLogin() {
+    const u = document.getElementById('username').value;
+    const p = document.getElementById('pin').value;
+    if(!u || !p) return alert("Isi lengkap!");
 
-    showLoading(true, "Mengirim Laporan...");
+    toggleLoading(true);
     
+    // Kirim data login ke server
+    const result = await postData({ 
+      action: 'login', 
+      username: u, 
+      pin: p 
+    });
+
+    toggleLoading(false);
+
+    if (result.success) {
+      sessionUser = result.nama;
+      document.getElementById('display-name').innerText = "Halo, " + result.nama;
+      document.getElementById('info-jadwal').innerText = result.jadwal;
+      document.getElementById('soal-kuis').innerText = result.kuis;
+      
+      // Pindah Halaman
+      document.getElementById('page-login').classList.add('hidden');
+      document.getElementById('page-form').classList.remove('hidden');
+      getGPS();
+    } else {
+      document.getElementById('login-msg').innerText = result.message;
+    }
+  }
+
+  // --- 3. UPLOAD ---
+  async function handleUpload() {
+    const keg = document.getElementById('kegiatan').value;
+    if(!keg) return alert("Isi kegiatan!");
+
+    toggleLoading(true);
+
     const fileInput = document.getElementById('foto');
     const file = fileInput.files[0];
+    
+    let base64File = null;
+    let fileName = null;
 
-    const payload = {
-      nama: session.nama,
-      kegiatan: kegiatan,
-      poin: document.getElementById('jawaban_kuis').value,
-      catatan: document.getElementById('catatan').value,
-      lokasi: document.getElementById('gps_coords').value,
-      fileData: null,
-      fileName: null
-    };
-
-    if(file) {
-      // Cek ukuran file (batas 4MB misal)
-      if(file.size > 4 * 1024 * 1024) {
-        showLoading(false);
-        alert("Ukuran foto terlalu besar! Maksimal 4MB.");
-        return;
+    // Jika ada file, convert ke Base64 dulu
+    if (file) {
+      if(file.size > 2 * 1024 * 1024) { 
+        toggleLoading(false); 
+        return alert("Foto terlalu besar (Max 2MB)"); 
       }
+      base64File = await toBase64(file);
+      fileName = file.name;
+    }
 
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        payload.fileData = e.target.result;
-        payload.fileName = file.name;
-        sendToServer(payload);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      sendToServer(payload);
+    // Kirim data upload ke server
+    const result = await postData({
+      action: 'simpan',
+      nama: sessionUser,
+      kegiatan: keg,
+      poin: document.getElementById('jawaban').value,
+      catatan: "", // Opsional
+      lokasi: document.getElementById('gps-val').value,
+      fileData: base64File,
+      fileName: fileName
+    });
+
+    toggleLoading(false);
+    alert(result.message);
+    
+    if(result.success) {
+      document.getElementById('kegiatan').value = "";
+      document.getElementById('foto').value = "";
     }
   }
 
-  function sendToServer(payload) {
-    google.script.run
-      .withSuccessHandler(done)
-      .withFailureHandler(err => {
-        showLoading(false);
-        alert("Gagal mengirim: " + err.message);
-      })
-      .simpanAktivitas(payload);
-  }
+  // --- Helper: Convert File to Base64 ---
+  const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 
-  function done(m) {
-    showLoading(false);
-    alert(m);
-    // Reset Form
-    document.getElementById('jurnalForm').reset();
-    document.getElementById('gps-status').innerText = "Mencari ulang...";
-    initiateGPS();
+  // --- Helper: GPS ---
+  function getGPS() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          document.getElementById('gps-val').value = pos.coords.latitude + ", " + pos.coords.longitude;
+        },
+        () => { document.getElementById('gps-val').value = "GPS Gagal/Ditolak"; }
+      );
+    }
   }
 </script>
 
