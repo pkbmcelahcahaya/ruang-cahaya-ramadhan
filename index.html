@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Ruang Cahaya Ramadhan</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   
@@ -75,14 +75,34 @@
     }
     .form-control:focus { border-color: var(--secondary-color); box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1); background: white; }
 
+    /* Checkbox Styles */
     .btn-check:checked + .btn-outline-success { background-color: var(--primary-color); border-color: var(--primary-color); color: white; }
-    .btn-outline-success { color: var(--primary-color); border-color: #cbd5e1; border-radius: 20px; font-size: 0.8rem; margin-right: 5px; margin-bottom: 5px; }
+    .btn-outline-success { 
+      color: var(--primary-color); border-color: #cbd5e1; border-radius: 12px; 
+      font-size: 0.8rem; margin-right: 5px; margin-bottom: 8px; padding: 6px 12px;
+      flex-grow: 1; text-align: center;
+    }
+    .check-group { display: flex; flex-wrap: wrap; gap: 5px; }
 
     /* Button & Hadis */
     .btn-primary-gradient { background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); border: none; color: white; border-radius: 12px; padding: 12px; font-weight: 600; width: 100%; transition: 0.2s; }
     .btn-primary-gradient:active { transform: scale(0.98); }
 
-    .hadis-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 15px; padding: 15px; position: relative; overflow: hidden; margin-bottom: 20px; }
+    .hadis-card { 
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); 
+      color: white; border-radius: 15px; padding: 20px; 
+      position: relative; overflow: hidden; margin-bottom: 20px; 
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    }
+    .arab-text {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      line-height: 1.8;
+      direction: rtl;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
 
     /* Tools */
     .hidden { display: none !important; }
@@ -155,10 +175,13 @@
           </div>
         </div>
 
-        <div class="hadis-card shadow-sm">
-            <i class="fas fa-quote-right position-absolute top-0 end-0 p-3 opacity-25 fa-2x"></i>
-            <h6 class="fw-bold text-warning small mb-1">✨ Mutiara Hadis</h6>
-            <p class="fst-italic mb-1 small" id="hadis-text" style="font-size: 0.85rem; line-height: 1.4;">"..."</p>
+        <div class="hadis-card shadow-sm text-center">
+            <i class="fas fa-star position-absolute top-0 start-0 p-3 opacity-25"></i>
+            <i class="fas fa-quote-right position-absolute bottom-0 end-0 p-3 opacity-25 fa-2x"></i>
+            <h6 class="fw-bold text-warning small mb-3">✨ MUTIARA HADIS</h6>
+            <div id="hadis-arab" class="arab-text">...</div>
+            <p class="fst-italic mb-2 small" id="hadis-indo" style="font-size: 0.9rem; line-height: 1.4;">"..."</p>
+            <div class="badge bg-white text-primary bg-opacity-90 mt-2" id="hadis-riwayat">-</div>
         </div>
 
         <form onsubmit="event.preventDefault(); handleUpload();">
@@ -169,16 +192,37 @@
           </div>
 
           <div class="mb-3">
-            <div class="section-title"><i class="fas fa-mosque me-1"></i> Sholat & Ibadah</div>
-            <div class="d-flex flex-wrap">
-              <input type="checkbox" class="btn-check" id="s-dhuha" value="Dhuha">
-              <label class="btn btn-outline-success" for="s-dhuha">Dhuha</label>
+            <div class="section-title"><i class="fas fa-mosque me-1"></i> Sholat Wajib (Fardhu)</div>
+            <div class="check-group mb-3">
+              <input type="checkbox" class="btn-check sholat-check" id="s-subuh" value="Subuh">
+              <label class="btn btn-outline-success" for="s-subuh">Subuh</label>
 
-              <input type="checkbox" class="btn-check" id="s-dzuhur" value="Dzuhur">
+              <input type="checkbox" class="btn-check sholat-check" id="s-dzuhur" value="Dzuhur">
               <label class="btn btn-outline-success" for="s-dzuhur">Dzuhur</label>
               
-              <input type="checkbox" class="btn-check" id="s-tarawih" value="Tarawih">
-              <label class="btn btn-outline-success" for="s-tarawih">Tarawih</label>
+              <input type="checkbox" class="btn-check sholat-check" id="s-ashar" value="Ashar">
+              <label class="btn btn-outline-success" for="s-ashar">Ashar</label>
+
+              <input type="checkbox" class="btn-check sholat-check" id="s-maghrib" value="Maghrib">
+              <label class="btn btn-outline-success" for="s-maghrib">Maghrib</label>
+
+              <input type="checkbox" class="btn-check sholat-check" id="s-isya" value="Isya">
+              <label class="btn btn-outline-success" for="s-isya">Isya</label>
+            </div>
+
+            <div class="section-title"><i class="fas fa-hands-praying me-1"></i> Ibadah Sunnah</div>
+            <div class="check-group">
+              <input type="checkbox" class="btn-check sholat-check" id="s-tarawih" value="Tarawih">
+              <label class="btn btn-outline-success" for="s-tarawih">Tarawih & Witir</label>
+
+              <input type="checkbox" class="btn-check sholat-check" id="s-dhuha" value="Dhuha">
+              <label class="btn btn-outline-success" for="s-dhuha">Dhuha</label>
+
+              <input type="checkbox" class="btn-check sholat-check" id="s-tahajud" value="Tahajud">
+              <label class="btn btn-outline-success" for="s-tahajud">Tahajud</label>
+
+              <input type="checkbox" class="btn-check sholat-check" id="s-rawatib" value="Rawatib">
+              <label class="btn btn-outline-success" for="s-rawatib">Rawatib (Qobliyah/Ba'diyah)</label>
             </div>
           </div>
 
@@ -189,8 +233,8 @@
               <textarea id="kultum" class="form-control" rows="2" placeholder="Judul / Isi materi singkat..."></textarea>
             </div>
             <div>
-              <label class="small fw-bold text-muted">Kegiatan Sosial (Sedekah/Infak)</label>
-              <input type="text" id="sosial" class="form-control" placeholder="Contoh: Berbagi Takjil di Masjid">
+              <label class="small fw-bold text-muted">Kegiatan Sosial</label>
+              <input type="text" id="sosial" class="form-control" placeholder="Infak / Berbagi Takjil">
             </div>
           </div>
 
@@ -205,7 +249,6 @@
           <div class="mb-3">
             <div class="section-title"><i class="fas fa-camera me-1"></i> Bukti Kegiatan</div>
             <input type="file" id="foto" class="form-control mb-2" accept="image/*">
-            
             <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded">
               <div id="gps-badge" class="gps-badge"><i class="fas fa-spinner fa-spin"></i> GPS</div>
               <input type="hidden" id="gps-val" value="">
@@ -229,12 +272,43 @@
   // ============================================
 
   let sessionUser = "";
+
+  // --- DATABASE HADIS (ARAB & INDO) ---
   const databaseHadis = [
-    "Barangsiapa berpuasa Ramadhan karena iman dan mengharap pahala, diampuni dosanya yang telah lalu. (HR. Bukhari)",
-    "Sahur itu barakah, maka janganlah kalian tinggalkan. (HR. Ahmad)",
-    "Sedekah paling utama adalah sedekah di bulan Ramadhan. (HR. Tirmidzi)",
-    "Puasa adalah perisai dari api neraka. (HR. Bukhari)",
-    "Bulan Ramadhan, bulan yang di dalamnya diturunkan Al-Qur'an. (QS. Al-Baqarah: 185)"
+    { arab: "مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ", indo: "Barangsiapa berpuasa Ramadhan karena iman dan mengharap pahala, maka diampuni dosanya yang telah lalu.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "تَسَحَّرُوا فَإِنَّ فِي السَّحُورِ بَرَكَةً", indo: "Makan sahurlah kalian, sesungguhnya di dalam sahur itu terdapat keberkahan.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "إِذَا جَاءَ رَمَضَانُ فُتِّحَتْ أَبْوَابُ الْجَنَّةِ وَغُلِّقَتْ أَبْوَابُ النَّارِ", indo: "Jika datang bulan Ramadhan, pintu-pintu surga dibuka dan pintu-pintu neraka ditutup.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "الصِّيَامُ جُنَّةٌ", indo: "Puasa itu adalah perisai (dari api neraka).", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "لَا يَزَالُ النَّاسُ بِخَيْرٍ مَا عَجَّلُوا الْفِطْرَ", indo: "Manusia senantiasa dalam kebaikan selama mereka menyegerakan berbuka puasa.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ", indo: "Sesungguhnya setiap amalan itu tergantung pada niatnya.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", indo: "Sebaik-baik kalian adalah orang yang belajar Al-Qur’an dan mengajarkannya.", riwayat: "HR. Bukhari" },
+    { arab: "الطُّهُورُ شَطْرُ الْإِيمَانِ", indo: "Kebersihan itu sebagian dari iman.", riwayat: "HR. Muslim" },
+    { arab: "الدِّينُ النَّصِيحَةُ", indo: "Agama itu adalah nasihat.", riwayat: "HR. Muslim" },
+    { arab: "مَنْ لَا يَرْحَمْ لَا يُرْحَمْ", indo: "Barangsiapa tidak menyayangi, maka tidak akan disayangi.", riwayat: "HR. Bukhari" },
+    { arab: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ", indo: "Bertakwalah kepada Allah di mana pun engkau berada.", riwayat: "HR. Tirmidzi" },
+    { arab: "أَفْضَلُ الصَّدَقَةِ صَدَقَةٌ فِي رَمَضَانَ", indo: "Sedekah yang paling utama adalah sedekah di bulan Ramadhan.", riwayat: "HR. Tirmidzi" },
+    { arab: "عُمْرَةٌ فِي رَمَضَانَ تَعْدِلُ حَجَّةً", indo: "Umrah di bulan Ramadhan pahalanya seperti haji.", riwayat: "HR. Bukhari" },
+    { arab: "مَنْ قَامَ لَيْلَةَ الْقَدْرِ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ", indo: "Barangsiapa shalat pada malam Lailatul Qadar karena iman dan mengharap pahala, diampuni dosanya yang lalu.", riwayat: "HR. Bukhari" },
+    { arab: "كُلُّ مَعْرُوفٍ صَدَقَةٌ", indo: "Setiap kebaikan adalah sedekah.", riwayat: "HR. Bukhari" },
+    { arab: "الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ", indo: "Perkataan yang baik adalah sedekah.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ", indo: "Siapa yang menempuh jalan untuk mencari ilmu, Allah mudahkan baginya jalan menuju surga.", riwayat: "HR. Muslim" },
+    { arab: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ", indo: "Senyummu di hadapan saudaramu adalah sedekah bagimu.", riwayat: "HR. Tirmidzi" },
+    { arab: "أَحَبُّ الْأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ", indo: "Amalan yang paling dicintai Allah adalah yang terus-menerus meskipun sedikit.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ", indo: "Orang kuat bukan yang pandai bergulat, tapi yang bisa menahan diri saat marah.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ", indo: "Siapa yang beriman kepada Allah dan hari akhir, hendaklah berkata baik atau diam.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "صِلْ مَنْ قَطَعَكَ", indo: "Sambunglah tali silaturahmi dengan orang yang memutusnya denganmu.", riwayat: "HR. Ahmad" },
+    { arab: "أَفْشُوا السَّلَامَ بَيْنَكُمْ", indo: "Sebarkanlah salam di antara kalian.", riwayat: "HR. Muslim" },
+    { arab: "الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى", indo: "Tangan di atas lebih baik daripada tangan di bawah.", riwayat: "HR. Bukhari" },
+    { arab: "لَا تَغْضَبْ وَلَكَ الْجَنَّةُ", indo: "Jangan marah, maka bagimu surga.", riwayat: "HR. Thabrani" },
+    { arab: "رِضَا اللَّهِ فِي رِضَا الْوَالِدَيْنِ", indo: "Ridha Allah terletak pada ridha kedua orang tua.", riwayat: "HR. Tirmidzi" },
+    { arab: "الدُّعَاءُ مُخُّ الْعِبَادَةِ", indo: "Doa adalah inti ibadah.", riwayat: "HR. Tirmidzi" },
+    { arab: "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ", indo: "Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain.", riwayat: "HR. Ahmad" },
+    { arab: "مَنْ غَشَّنَا فَلَيْسَ مِنَّا", indo: "Barangsiapa yang menipu kami, maka ia bukan dari golongan kami.", riwayat: "HR. Muslim" },
+    { arab: "المُسْلِمُ مَنْ سَلِمَ المُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ", indo: "Muslim sejati adalah yang muslim lainnya selamat dari lisan dan tangannya.", riwayat: "HR. Bukhari" },
+    { arab: "إِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ", indo: "Sesungguhnya kejujuran mengantarkan kepada kebaikan.", riwayat: "HR. Bukhari & Muslim" },
+    { arab: "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ", indo: "Tidak sempurna iman salah seorang dari kalian hingga ia mencintai saudaranya seperti mencintai dirinya sendiri.", riwayat: "HR. Bukhari" },
+    { arab: "مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ فَهُوَ رَدٌّ", indo: "Barangsiapa mengada-ada dalam urusan agama kami yang bukan darinya, maka tertolak.", riwayat: "HR. Bukhari & Muslim" }
+    // List ini akan diacak sehingga terasa selalu baru setiap hari
   ];
 
   // --- INIT ---
@@ -244,7 +318,10 @@
   }
 
   function loadRandomHadis() {
-    document.getElementById('hadis-text').innerText = databaseHadis[Math.floor(Math.random() * databaseHadis.length)];
+    const data = databaseHadis[Math.floor(Math.random() * databaseHadis.length)];
+    document.getElementById('hadis-arab').innerText = data.arab;
+    document.getElementById('hadis-indo').innerText = `"${data.indo}"`;
+    document.getElementById('hadis-riwayat').innerText = data.riwayat;
   }
 
   function updateClock() {
@@ -253,7 +330,7 @@
     document.getElementById('date-now').innerText = now.toLocaleDateString('id-ID', options);
   }
 
-  // --- LOGIC UTAMA ---
+  // --- LOGIC LOGIN & DATA ---
   async function handleLogin() {
     const u = document.getElementById('username').value;
     const p = document.getElementById('pin').value;
@@ -262,28 +339,21 @@
     toggleLoading(true);
     document.getElementById('login-msg').classList.add('hidden');
     
-    // Kirim data Login (Flowmap 1: Identitas)
     const result = await postData({ action: 'login', username: u, pin: p });
     toggleLoading(false);
 
     if (result.success) {
       sessionUser = result.nama;
-      document.getElementById('display-name').innerText = result.nama.split(' ')[0]; // Ambil nama depan
+      document.getElementById('display-name').innerText = result.nama.split(' ')[0];
       document.getElementById('soal-kuis').innerText = result.kuis;
       
-      // Parse Jadwal (Asumsi format server: "Imsak 04:15 | Subuh 04:30 | Maghrib 18:00")
-      // Jika server masih format lama, ini handle errornya
+      // Parse Jadwal Sederhana
       try {
-         // Logika sederhana untuk demo (Idealnya data dr server)
-         // Anda bisa update function getJadwalHarian di Google Script agar return JSON detail
          document.getElementById('time-imsak').innerText = "04:15"; 
          document.getElementById('time-subuh').innerText = "04:30";
          document.getElementById('time-maghrib').innerText = "18:00";
-         
-         // Jika result.jadwal berisi string lengkap, parsing disini:
          if(result.jadwal && result.jadwal.includes('|')) {
             const parts = result.jadwal.split('|');
-            // Contoh parsing kasar
             parts.forEach(p => {
                 if(p.toLowerCase().includes('imsak')) document.getElementById('time-imsak').innerText = p.split(' ')[1];
                 if(p.toLowerCase().includes('subuh')) document.getElementById('time-subuh').innerText = p.split(' ')[1];
@@ -301,26 +371,22 @@
   }
 
   async function handleUpload() {
-    // 1. Ambil Data Form (Flowmap 2: Kegiatan Inti)
     const tadarus = document.getElementById('tadarus').value || "-";
     const kultum = document.getElementById('kultum').value || "-";
     const sosial = document.getElementById('sosial').value || "-";
     const jawaban = document.getElementById('jawaban').value || "-";
     
-    // Ambil Checkbox Sholat
+    // Ambil Semua Checkbox Sholat
     let sholatList = [];
-    if(document.getElementById('s-dhuha').checked) sholatList.push("Dhuha");
-    if(document.getElementById('s-dzuhur').checked) sholatList.push("Dzuhur");
-    if(document.getElementById('s-tarawih').checked) sholatList.push("Tarawih");
-    const sholatStr = sholatList.length > 0 ? sholatList.join(", ") : "Tidak sholat sunnah/berjamaah";
-
-    // Gabungkan data agar sesuai kolom Google Sheet (Kegiatan)
-    // Format: [Tadarus: ...] [Sholat: ...] [Kultum: ...] [Sosial: ...]
+    document.querySelectorAll('.sholat-check:checked').forEach((checkbox) => {
+        sholatList.push(checkbox.value);
+    });
+    
+    const sholatStr = sholatList.length > 0 ? sholatList.join(", ") : "Tidak ada";
     const combinedKegiatan = `[Tadarus: ${tadarus}] \n[Sholat: ${sholatStr}] \n[Kultum: ${kultum}] \n[Sosial: ${sosial}]`;
 
     toggleLoading(true);
 
-    // Proses Foto
     const fileInput = document.getElementById('foto');
     let base64File = null; let fileName = null;
     if (fileInput.files.length > 0) {
@@ -330,12 +396,11 @@
       fileName = file.name;
     }
 
-    // Kirim (Flowmap 4: Monitoring / Simpan Data)
     const result = await postData({
       action: 'simpan',
       nama: sessionUser,
-      kegiatan: combinedKegiatan, // Data gabungan
-      poin: jawaban,             // Jawaban Kuis
+      kegiatan: combinedKegiatan, 
+      poin: jawaban,            
       catatan: "", 
       lokasi: document.getElementById('gps-val').value,
       fileData: base64File,
@@ -347,13 +412,14 @@
     if(result.success) {
       alert("✅ Laporan Harian Berhasil Disimpan!");
       document.getElementById('page-form').querySelector('form').reset();
-      getGPS(); // Refresh GPS
+      loadRandomHadis(); // Ganti hadis setelah lapor biar fresh
+      getGPS();
     } else {
       alert("❌ Gagal: " + result.message);
     }
   }
 
-  // --- HELPER FUNCTIONS ---
+  // --- HELPER ---
   function toggleLoading(show) {
     const el = document.getElementById('loading');
     if(show) el.classList.remove('hidden'); else el.classList.add('hidden');
