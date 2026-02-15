@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ruang Cahaya Ramadhan</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,12 +17,28 @@
                         cahaya: {
                             emas: '#D4AF37',
                             emasTerang: '#FBEB98',
-                            malam: '#0F172A',
+                            malam: '#0B1120', /* Sedikit dipergelap untuk kontras */
                             langit: '#1E293B'
                         }
                     },
                     backgroundImage: {
-                        'ramadhan-pattern': "url('https://www.transparenttextures.com/patterns/arabesque.png')"
+                        'ramadhan-pattern': "url('https://www.transparenttextures.com/patterns/arabesque.png')",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -34,174 +50,214 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        
+        /* Glassmorphism utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .glass-dark {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
-<body class="bg-cahaya-malam text-cahaya-malam font-sans min-h-screen bg-ramadhan-pattern bg-fixed flex justify-center">
+<body class="bg-gray-100 text-cahaya-malam font-sans min-h-screen flex justify-center selection:bg-cahaya-emas selection:text-white">
 
     <div class="w-full max-w-md bg-gray-50 min-h-screen shadow-2xl relative overflow-x-hidden flex flex-col">
 
-        <section id="login-container" class="flex-1 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cahaya-malam to-cahaya-langit text-white bg-ramadhan-pattern relative">
-            <div class="absolute top-10 left-10 text-4xl opacity-20">🌙</div>
-            <div class="absolute top-20 right-10 text-2xl opacity-20">⭐</div>
+        <section id="login-container" class="flex-1 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cahaya-malam via-slate-900 to-cahaya-langit text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-ramadhan-pattern opacity-30 mix-blend-overlay"></div>
+            <div class="absolute -top-20 -left-20 w-64 h-64 bg-cahaya-emas rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-pulse"></div>
+            <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 animate-pulse"></div>
             
-            <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-[0_0_30px_rgba(212,175,55,0.15)] text-center border-t-8 border-cahaya-emas relative z-10">
-                <div class="flex justify-center mb-2">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" alt="Logo PKBM" class="h-20 w-auto object-contain">
+            <div class="absolute top-16 left-10 text-5xl opacity-80 animate-float drop-shadow-[0_0_15px_rgba(251,235,152,0.5)]">🌙</div>
+            <div class="absolute top-24 right-12 text-3xl opacity-80 animate-float-delayed drop-shadow-[0_0_15px_rgba(251,235,152,0.5)]">✨</div>
+            
+            <div class="glass-card rounded-[2.5rem] p-8 w-full max-w-sm shadow-[0_20px_50px_rgba(0,0,0,0.3)] text-center border-t-4 border-cahaya-emas relative z-10 animate-fade-in">
+                <div class="flex justify-center mb-4 relative">
+                    <div class="absolute inset-0 bg-cahaya-emas blur-2xl opacity-20 rounded-full"></div>
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" alt="Logo PKBM" class="h-20 w-auto object-contain relative z-10 drop-shadow-lg">
                 </div>
                 
                 <p class="text-cahaya-emas text-xs font-bold tracking-widest uppercase mb-1">Marhaban Ya Ramadhan</p>
-                <h1 class="text-2xl font-extrabold text-gray-800 mb-1">Ruang Cahaya</h1>
-                <p class="text-sm text-gray-500 mb-8">Silakan masuk untuk memulai perjalanan</p>
+                <h1 class="text-3xl font-extrabold text-gray-800 mb-2 tracking-tight">Ruang Cahaya</h1>
+                <p class="text-sm text-gray-500 mb-8 font-medium">Masuk untuk memulai perjalananmu</p>
                 
-                <form id="formLogin" class="space-y-5">
-                    <div class="relative">
-                        <input type="text" id="loginUsername" placeholder="Username / NISN" required class="w-full p-3.5 pl-10 border border-gray-200 rounded-xl bg-gray-50 text-gray-800 outline-none focus:ring-2 focus:ring-cahaya-emas focus:bg-white transition-all">
-                        <span class="absolute left-3.5 top-3.5 text-gray-400">👤</span>
+                <form id="formLogin" class="space-y-4">
+                    <div class="relative group">
+                        <input type="text" id="loginUsername" placeholder="Username / NISN" required class="w-full p-4 pl-12 border-2 border-gray-100 rounded-2xl bg-gray-50/50 text-gray-800 outline-none focus:border-cahaya-emas focus:bg-white focus:ring-4 focus:ring-cahaya-emas/10 transition-all font-medium">
+                        <span class="absolute left-4 top-4 text-gray-400 group-focus-within:text-cahaya-emas transition-colors text-lg">👤</span>
                     </div>
-                    <div class="relative">
-                        <input type="password" id="loginPin" placeholder="PIN" required class="w-full p-3.5 pl-10 border border-gray-200 rounded-xl bg-gray-50 text-gray-800 outline-none focus:ring-2 focus:ring-cahaya-emas focus:bg-white transition-all">
-                        <span class="absolute left-3.5 top-3.5 text-gray-400">🔒</span>
+                    <div class="relative group">
+                        <input type="password" id="loginPin" placeholder="PIN Keamanan" required class="w-full p-4 pl-12 border-2 border-gray-100 rounded-2xl bg-gray-50/50 text-gray-800 outline-none focus:border-cahaya-emas focus:bg-white focus:ring-4 focus:ring-cahaya-emas/10 transition-all font-medium">
+                        <span class="absolute left-4 top-4 text-gray-400 group-focus-within:text-cahaya-emas transition-colors text-lg">🔒</span>
                     </div>
-                    <button type="submit" id="btnLogin" class="w-full bg-gradient-to-r from-[#D4AF37] to-[#B5952F] text-white font-bold py-3.5 rounded-xl hover:shadow-[0_0_15px_rgba(212,175,55,0.5)] active:scale-[0.98] transition-all">
-                        Masuk
+                    <button type="submit" id="btnLogin" class="w-full bg-gradient-to-r from-cahaya-emas to-yellow-500 text-white font-bold py-4 rounded-2xl shadow-[0_8px_20px_rgba(212,175,55,0.3)] hover:shadow-[0_8px_25px_rgba(212,175,55,0.5)] hover:-translate-y-0.5 active:translate-y-0 transition-all mt-2">
+                        Masuk Sekarang
                     </button>
                 </form>
 
                 <div class="mt-8 pt-6 border-t border-gray-100">
-                    <p class="text-[10px] text-gray-400 mb-3 font-semibold uppercase tracking-wider">Kolaborasi Kebaikan</p>
-                    <div class="flex justify-center items-center gap-4 opacity-60 hover:opacity-100 transition-opacity">
-                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/komunitasngejah.png" class="h-5 grayscale hover:grayscale-0 transition-all">
-                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_kangruli.png" class="h-5 grayscale hover:grayscale-0 transition-all">
-                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                    <p class="text-[10px] text-gray-400 mb-3 font-bold uppercase tracking-widest">Kolaborasi Kebaikan</p>
+                    <div class="flex justify-center items-center gap-5 opacity-50 hover:opacity-100 transition-opacity duration-300">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/komunitasngejah.png" class="h-6 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_kangruli.png" class="h-6 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-6 grayscale hover:grayscale-0 transition-all">
                     </div>
                 </div>
             </div>
         </section>
 
-        <div id="app-container" class="hidden flex-1 flex flex-col pb-6">
+        <div id="app-container" class="hidden flex-1 flex-col pb-6 bg-gray-50">
             
-            <header class="bg-gradient-to-br from-cahaya-malam to-cahaya-langit text-white p-6 rounded-b-[2.5rem] shadow-lg relative overflow-hidden bg-ramadhan-pattern">
-                <div class="absolute -right-4 -top-4 text-6xl opacity-10">🕌</div>
+            <header class="bg-gradient-to-br from-cahaya-malam via-slate-800 to-slate-900 text-white p-7 pb-12 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-ramadhan-pattern opacity-10"></div>
+                <div class="absolute -right-10 -top-10 text-8xl opacity-5">🕌</div>
+                <div class="absolute top-0 right-0 w-40 h-40 bg-cahaya-emas rounded-full mix-blend-overlay filter blur-[50px] opacity-40"></div>
                 
-                <div class="flex justify-between items-start z-10 relative mt-2">
+                <div class="flex justify-between items-start z-10 relative mt-2 animate-fade-in">
                     <div>
-                        <p class="text-cahaya-emasTerang text-xs font-semibold uppercase tracking-wide mb-1">✨ PKBM Celah Cahaya</p>
-                        <h1 class="text-xl font-bold opacity-90">Assalamualaikum,</h1>
-                        <p id="namaHeader" class="text-2xl font-extrabold text-white">Warga Belajar</p>
+                        <div class="inline-flex items-center gap-2 bg-white/10 rounded-full px-3 py-1 mb-3 backdrop-blur-sm border border-white/10">
+                            <span class="text-xs">✨</span>
+                            <p class="text-cahaya-emasTerang text-[10px] font-bold uppercase tracking-wider">PKBM Celah Cahaya</p>
+                        </div>
+                        <h1 class="text-xl font-medium text-gray-300">Assalamualaikum,</h1>
+                        <p id="namaHeader" class="text-3xl font-extrabold text-white tracking-tight mt-1 drop-shadow-md">Warga Belajar</p>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <button onclick="toggleNotifikasi()" class="relative p-2.5 bg-white/10 rounded-full border border-cahaya-emas/30 backdrop-blur-md hover:bg-white/20 transition">
-                            <span class="text-lg leading-none">🔔</span>
-                            <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-cahaya-malam shadow-md hidden animate-pulse">1</span>
+                        <button onclick="toggleNotifikasi()" class="relative p-3 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-md hover:bg-white/20 transition-all shadow-lg hover:shadow-white/10">
+                            <span class="text-xl leading-none">🔔</span>
+                            <span id="notifBadge" class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-slate-900 shadow-lg hidden animate-bounce">1</span>
                         </button>
                     </div>
                 </div>
                 
-                <div id="progress-container" class="mt-6 bg-white/10 backdrop-blur-sm rounded-2xl p-4 flex items-center shadow-inner border border-white/10">
-                    <div class="bg-gradient-to-br from-cahaya-emas to-yellow-600 h-12 w-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.4)]">
-                        <span class="text-xl">🏮</span>
+                <div id="progress-container" class="mt-8 glass-dark rounded-2xl p-4 flex items-center shadow-lg relative z-10 animate-fade-in" style="animation-delay: 0.1s;">
+                    <div class="bg-gradient-to-br from-cahaya-emas to-yellow-500 h-14 w-14 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.4)] rotate-3">
+                        <span class="text-2xl -rotate-3">🏮</span>
                     </div>
                     <div class="ml-4 flex-1">
-                        <div class="flex justify-between items-end mb-1.5">
-                            <p class="text-xs text-gray-200 font-medium">Cahaya Ramadhanmu</p>
-                            <span class="text-xs font-bold text-cahaya-emasTerang">80%</span>
+                        <div class="flex justify-between items-end mb-2">
+                            <p class="text-xs text-gray-300 font-semibold tracking-wide">Cahaya Ramadhanmu</p>
+                            <span class="text-sm font-black text-cahaya-emasTerang drop-shadow-md">80%</span>
                         </div>
-                        <div class="w-full bg-gray-800/50 rounded-full h-2.5 shadow-inner overflow-hidden">
-                            <div class="bg-gradient-to-r from-cahaya-emas to-yellow-400 h-2.5 rounded-full relative" style="width: 80%">
-                                <div class="absolute top-0 left-0 right-0 bottom-0 bg-white/20 animate-pulse"></div>
+                        <div class="w-full bg-slate-900/60 rounded-full h-3 shadow-inner overflow-hidden border border-white/5">
+                            <div class="bg-gradient-to-r from-yellow-500 via-cahaya-emas to-yellow-300 h-full rounded-full relative" style="width: 80%">
+                                <div class="absolute top-0 left-0 right-0 bottom-0 bg-white/30 animate-[pulse_2s_ease-in-out_infinite]"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <div class="mx-6 mt-[-20px] relative z-10 bg-white p-4 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="bg-orange-100 p-2 rounded-xl text-xl">🌅</div>
+            <div class="mx-6 -mt-6 relative z-20 bg-white p-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex justify-between items-center animate-fade-in" style="animation-delay: 0.2s;">
+                <div class="flex items-center gap-4">
+                    <div class="bg-orange-50 p-3 rounded-2xl text-2xl border border-orange-100">🌅</div>
                     <div>
-                        <p class="text-[11px] text-gray-500 font-semibold uppercase tracking-wider">Menjelang Berbuka</p>
-                        <p class="font-bold text-base text-cahaya-malam">Maghrib: 18:00 WIB</p>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">Menjelang Berbuka</p>
+                        <p class="font-extrabold text-base text-gray-800">Maghrib: <span class="text-cahaya-emas">18:00 WIB</span></p>
                     </div>
                 </div>
             </div>
 
-            <main class="p-6 flex-1">
+            <main class="p-6 flex-1 space-y-6">
                 
-                <section id="menu-warga" class="grid grid-cols-2 gap-4">
-                    <button onclick="alert('Kuis belum tersedia')" class="group flex flex-col items-center justify-center p-5 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-cahaya-emas/50 hover:shadow-md active:scale-95 transition-all">
-                        <div class="bg-blue-50 p-3 rounded-full mb-3 group-hover:bg-blue-100 transition-colors"><span class="text-2xl">🧠</span></div>
-                        <span class="font-bold text-sm text-gray-700">Kuis 7 Menit</span>
+                <section id="menu-warga" class="grid grid-cols-2 gap-4 animate-fade-in" style="animation-delay: 0.3s;">
+                    <button onclick="alert('Kuis belum tersedia')" class="group flex flex-col items-center justify-center p-6 bg-white rounded-[2rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-100 hover:border-blue-200 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
+                        <div class="bg-blue-50/80 p-4 rounded-2xl mb-4 group-hover:bg-blue-100 group-hover:scale-110 transition-all duration-300"><span class="text-3xl drop-shadow-sm">🧠</span></div>
+                        <span class="font-extrabold text-sm text-gray-700">Kuis 7 Menit</span>
+                        <span class="text-[10px] text-gray-400 font-medium mt-1">Asah Ilmu</span>
                     </button>
-                    <button onclick="toggleFormSetor()" class="group flex flex-col items-center justify-center p-5 bg-gradient-to-b from-yellow-50 to-white rounded-2xl shadow-sm border border-cahaya-emas/30 hover:shadow-md active:scale-95 transition-all">
-                        <div class="bg-yellow-100 p-3 rounded-full mb-3 group-hover:bg-yellow-200 transition-colors"><span class="text-2xl">🤲</span></div>
-                        <span class="font-bold text-sm text-gray-700">Setor Ibadah</span>
+                    
+                    <button onclick="toggleFormSetor()" class="group flex flex-col items-center justify-center p-6 bg-gradient-to-b from-yellow-50/50 to-white rounded-[2rem] shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-yellow-100 hover:border-cahaya-emas/40 hover:shadow-[0_8px_30px_rgba(212,175,55,0.2)] hover:-translate-y-1 active:translate-y-0 transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-yellow-100 rounded-full blur-xl opacity-50"></div>
+                        <div class="bg-yellow-100/80 p-4 rounded-2xl mb-4 group-hover:bg-yellow-200 group-hover:scale-110 transition-all duration-300 relative z-10"><span class="text-3xl drop-shadow-sm">🤲</span></div>
+                        <span class="font-extrabold text-sm text-gray-700 relative z-10">Setor Ibadah</span>
+                        <span class="text-[10px] text-cahaya-emas font-semibold mt-1 relative z-10">+ Poin Kebaikan</span>
                     </button>
-                    <button onclick="keluar()" class="col-span-2 flex items-center justify-center p-3.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-xl border border-red-100 mt-2 transition-colors">
-                        <span class="mr-2">🚪</span> Keluar Aplikasi
+                    
+                    <button onclick="keluar()" class="col-span-2 flex items-center justify-center p-4 bg-red-50/80 hover:bg-red-100 text-red-600 font-bold rounded-2xl border border-red-100 mt-2 transition-colors group">
+                        <span class="mr-2 group-hover:-translate-x-1 transition-transform">🚪</span> Keluar Aplikasi
                     </button>
                 </section>
 
                 <section id="menu-admin" class="hidden grid grid-cols-1 gap-4">
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 text-center shadow-sm">
-                        <span class="text-4xl block mb-3">👨‍🏫</span>
-                        <h3 class="font-bold text-lg text-blue-900">Mode Tutor / Admin</h3>
-                        <p class="text-sm text-blue-700 mt-2 leading-relaxed">Buka Google Sheets di komputer/laptop untuk melihat riwayat setoran & foto warga belajar secara lengkap.</p>
+                    <div class="bg-gradient-to-br from-indigo-50 to-blue-50 p-8 rounded-[2rem] border border-blue-100 text-center shadow-sm relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 text-8xl opacity-10">👨‍🏫</div>
+                        <span class="text-5xl block mb-4 drop-shadow-md">👨‍🏫</span>
+                        <h3 class="font-extrabold text-xl text-indigo-900 mb-2">Mode Tutor / Admin</h3>
+                        <p class="text-sm text-indigo-700/80 leading-relaxed font-medium max-w-[250px] mx-auto">Akses Google Sheets via PC untuk memonitor riwayat setoran & evaluasi warga belajar.</p>
                     </div>
-                    <button onclick="keluar()" class="flex items-center justify-center p-3.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-xl border border-red-100 transition-colors">
-                        <span class="mr-2">🚪</span> Keluar Akun
+                    <button onclick="keluar()" class="flex items-center justify-center p-4 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-2xl border border-red-100 transition-colors group">
+                        <span class="mr-2 group-hover:-translate-x-1 transition-transform">🚪</span> Keluar Akun
                     </button>
                 </section>
 
-                <section id="form-setor-section" class="hidden mt-6 bg-white p-6 rounded-2xl shadow-lg border border-gray-100 border-t-4 border-t-cahaya-emas transition-all">
-                    <div class="flex justify-between items-center mb-5">
-                        <h2 class="font-bold text-lg text-gray-800 flex items-center gap-2">📝 <p>Formulir Kebaikan</p></h2>
-                        <button onclick="toggleFormSetor()" class="text-gray-400 hover:text-red-500 font-bold text-xl">&times;</button>
+                <section id="form-setor-section" class="hidden bg-white p-7 rounded-[2rem] shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-100 border-t-8 border-t-cahaya-emas transition-all duration-500 transform origin-top">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="font-extrabold text-xl text-gray-800 flex items-center gap-3">
+                            <span class="bg-yellow-50 p-2 rounded-xl">📝</span> Formulir Kebaikan
+                        </h2>
+                        <button onclick="toggleFormSetor()" class="bg-gray-50 hover:bg-red-50 text-gray-400 hover:text-red-500 rounded-full w-8 h-8 flex items-center justify-center font-bold text-xl transition-colors">&times;</button>
                     </div>
                     
                     <form id="formSetorData">
                         <input type="hidden" id="namaWargaForm" name="nama_warga">
                         
-                        <div class="mb-4">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Pilih Kegiatan 🌟</label>
-                            <select name="pilihan_kegiatan" required class="w-full p-3.5 border border-gray-200 rounded-xl bg-gray-50 outline-none focus:ring-2 focus:ring-cahaya-emas focus:bg-white transition-all text-sm">
-                                <option value="">-- Pilih Amalan Hari Ini --</option>
-                                <option>Shalat 5 Waktu (5 Poin)</option>
-                                <option>Tarawih & Witir (5 Poin)</option>
-                                <option>Tadarus Al-Quran (10 Poin)</option>
-                                <option>Membantu Orang Tua (10 Poin)</option>
-                            </select>
+                        <div class="mb-5">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Pilih Kegiatan <span class="text-cahaya-emas">🌟</span></label>
+                            <div class="relative">
+                                <select name="pilihan_kegiatan" required class="w-full p-4 border-2 border-gray-100 rounded-2xl bg-gray-50/50 outline-none focus:border-cahaya-emas focus:bg-white focus:ring-4 focus:ring-cahaya-emas/10 transition-all text-sm font-semibold text-gray-700 appearance-none">
+                                    <option value="" disabled selected>-- Pilih Amalan Hari Ini --</option>
+                                    <option>Shalat 5 Waktu (5 Poin)</option>
+                                    <option>Tarawih & Witir (5 Poin)</option>
+                                    <option>Tadarus Al-Quran (10 Poin)</option>
+                                    <option>Membantu Orang Tua (10 Poin)</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="mb-6">
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Foto Bukti (Opsional) 📸</label>
-                            <input name="fileFoto" type="file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 border border-gray-200 p-2 rounded-xl bg-gray-50">
+                        <div class="mb-8">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Foto Bukti <span class="text-gray-400 text-xs font-normal">(Opsional)</span> 📸</label>
+                            <div class="border-2 border-dashed border-gray-200 rounded-2xl bg-gray-50/50 p-2 hover:bg-gray-50 transition-colors group">
+                                <input name="fileFoto" type="file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-yellow-100 file:text-yellow-700 group-hover:file:bg-cahaya-emas group-hover:file:text-white file:transition-colors cursor-pointer outline-none">
+                            </div>
                         </div>
 
-                        <button type="submit" id="btnSubmitSetor" class="w-full bg-gradient-to-r from-cahaya-emas to-yellow-600 text-white font-bold py-3.5 rounded-xl hover:shadow-lg active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+                        <button type="submit" id="btnSubmitSetor" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl shadow-[0_8px_20px_rgba(15,23,42,0.2)] hover:shadow-[0_8px_25px_rgba(15,23,42,0.3)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex justify-center items-center gap-2">
                             Kirim Cahaya Kebaikan ✨
                         </button>
                     </form>
                 </section>
             </main>
 
-            <footer class="mt-auto text-center pb-4">
-                <p class="text-[10px] text-gray-400 mb-2 uppercase tracking-widest font-semibold">Didukung Penuh Oleh</p>
-                <div class="flex justify-center items-center gap-4 opacity-70 grayscale bg-white p-3 mx-8 rounded-2xl border border-gray-100 shadow-sm">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_kangruli.png" class="h-5">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/komunitasngejah.png" class="h-5">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-5">
+            <footer class="mt-auto text-center pb-6">
+                <p class="text-[10px] text-gray-400 mb-3 uppercase tracking-widest font-bold">Didukung Penuh Oleh</p>
+                <div class="flex justify-center items-center gap-5 opacity-60 grayscale bg-white/50 backdrop-blur-sm py-3 px-6 mx-8 rounded-2xl border border-gray-200 shadow-sm hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_kangruli.png" class="h-6">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/komunitasngejah.png" class="h-6">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-6">
                 </div>
             </footer>
         </div>
     </div>
 
-    <div id="notifModal" class="hidden fixed inset-0 z-50 bg-cahaya-malam/60 backdrop-blur-sm flex justify-center items-end opacity-0 transition-opacity duration-300">
-        <div class="bg-white w-full max-w-md rounded-t-[2rem] p-6 transform translate-y-full transition-transform duration-300" id="notifContent">
-            <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
-                <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">🔔 Notifikasi</h3>
-                <button onclick="toggleNotifikasi()" class="bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-gray-500 font-bold transition-colors">&times;</button>
+    <div id="notifModal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md flex justify-center items-end opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-md rounded-t-[2.5rem] p-7 transform translate-y-full transition-transform duration-300 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]" id="notifContent">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                <h3 class="font-extrabold text-xl text-gray-800 flex items-center gap-3">
+                    <span class="bg-gray-100 p-2 rounded-xl">🔔</span> Notifikasi
+                </h3>
+                <button onclick="toggleNotifikasi()" class="bg-gray-50 hover:bg-gray-200 rounded-full w-10 h-10 flex items-center justify-center text-gray-500 font-bold transition-colors text-xl">&times;</button>
             </div>
-            <div id="notifList" class="space-y-3 pb-6 max-h-[60vh] overflow-y-auto">
+            <div id="notifList" class="space-y-4 pb-6 max-h-[60vh] overflow-y-auto pr-2">
                 </div>
         </div>
     </div>
@@ -220,7 +276,7 @@
             const user = document.getElementById('loginUsername').value;
             const pin = document.getElementById('loginPin').value;
             
-            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memeriksa...`;
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memeriksa...`;
             btn.disabled = true;
 
             fetch(`${GOOGLE_SCRIPT_URL}?action=login&username=${user}&pin=${pin}`)
@@ -232,33 +288,41 @@
                         masukKeAplikasi(userData);
                     } else { 
                         alert(data.pesan); 
-                        btn.innerHTML = "Masuk"; 
+                        btn.innerHTML = "Masuk Sekarang"; 
                         btn.disabled = false;
                     }
                 })
                 .catch(err => {
                     alert("Terjadi kesalahan jaringan.");
-                    btn.innerHTML = "Masuk"; 
+                    btn.innerHTML = "Masuk Sekarang"; 
                     btn.disabled = false;
                 });
         });
 
         function masukKeAplikasi(user) {
-            document.getElementById('login-container').classList.add('hidden');
-            document.getElementById('app-container').classList.remove('hidden');
-            document.getElementById('app-container').classList.add('flex');
+            const loginEl = document.getElementById('login-container');
+            const appEl = document.getElementById('app-container');
             
-            const namaFormat = user.nama.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
-            document.getElementById('namaHeader').textContent = namaFormat;
-            document.getElementById('namaWargaForm').value = user.nama;
+            // Animasi transisi yang lebih halus
+            loginEl.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+            
+            setTimeout(() => {
+                loginEl.classList.add('hidden');
+                appEl.classList.remove('hidden');
+                appEl.classList.add('flex');
+                
+                const namaFormat = user.nama.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+                document.getElementById('namaHeader').textContent = namaFormat;
+                document.getElementById('namaWargaForm').value = user.nama;
 
-            if (user.role === 'tutor' || user.role === 'admin') {
-                document.getElementById('menu-warga').classList.add('hidden');
-                document.getElementById('menu-admin').classList.remove('hidden');
-                document.getElementById('progress-container').classList.add('hidden'); 
-            }
+                if (user.role === 'tutor' || user.role === 'admin') {
+                    document.getElementById('menu-warga').classList.add('hidden');
+                    document.getElementById('menu-admin').classList.remove('hidden');
+                    document.getElementById('progress-container').classList.add('hidden'); 
+                }
 
-            periksaNotifikasi();
+                periksaNotifikasi();
+            }, 500);
         }
 
         function keluar() { localStorage.removeItem('userRC'); location.reload(); }
@@ -267,16 +331,26 @@
             const form = document.getElementById('form-setor-section');
             if(form.classList.contains('hidden')) {
                 form.classList.remove('hidden');
-                setTimeout(() => form.scrollIntoView({behavior: 'smooth', block: 'center'}), 100);
+                // Sedikit delay untuk membiarkan display block dirender sebelum animasi
+                setTimeout(() => {
+                    form.classList.remove('scale-95', 'opacity-0');
+                    form.classList.add('scale-100', 'opacity-100');
+                    form.scrollIntoView({behavior: 'smooth', block: 'center'});
+                }, 10);
             } else {
-                form.classList.add('hidden');
+                form.classList.remove('scale-100', 'opacity-100');
+                form.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => form.classList.add('hidden'), 500);
             }
         }
+
+        // Setup awal kelas animasi form
+        document.getElementById('form-setor-section').classList.add('scale-95', 'opacity-0');
 
         document.getElementById('formSetorData').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSubmitSetor');
-            btn.innerHTML = "Mengirim Data... ⏳"; 
+            btn.innerHTML = `<svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Mengirim...`; 
             btn.disabled = true;
 
             fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: new FormData(e.target) })
@@ -319,13 +393,13 @@
             let html = '';
             
             if (jam >= 15 && jam < 18) {
-                html += `<div class="p-4 bg-yellow-50 rounded-xl border border-yellow-200 flex gap-3 shadow-sm"><div class="text-2xl">🧠</div><div><b class="text-yellow-800 text-sm">Kuis Sore Dibuka!</b><p class="text-xs text-gray-600 mt-1">Sambil ngabuburit, yuk kerjakan kuis hari ini.</p></div></div>`;
+                html += `<div class="p-4 bg-yellow-50 rounded-2xl border border-yellow-100 flex gap-4 shadow-sm hover:shadow-md transition-shadow"><div class="text-3xl bg-white p-2 rounded-xl shadow-sm h-fit">🧠</div><div><b class="text-yellow-800 text-sm font-extrabold block mb-1">Kuis Sore Dibuka!</b><p class="text-xs text-yellow-700/80 font-medium leading-relaxed">Sambil ngabuburit, yuk kerjakan kuis hari ini dan kumpulkan poinnya.</p></div></div>`;
             }
             if (jam >= 18 && jam < 19) {
-                html += `<div class="p-4 bg-blue-50 rounded-xl border border-blue-200 flex gap-3 shadow-sm"><div class="text-2xl">🌅</div><div><b class="text-blue-800 text-sm">Alhamdulillah, Waktunya Berbuka</b><p class="text-xs text-gray-600 mt-1">Selamat berbuka puasa. Jangan lupa shalat Maghrib ya!</p></div></div>`;
+                html += `<div class="p-4 bg-blue-50 rounded-2xl border border-blue-100 flex gap-4 shadow-sm hover:shadow-md transition-shadow"><div class="text-3xl bg-white p-2 rounded-xl shadow-sm h-fit">🌅</div><div><b class="text-blue-800 text-sm font-extrabold block mb-1">Alhamdulillah, Waktunya Berbuka</b><p class="text-xs text-blue-700/80 font-medium leading-relaxed">Selamat berbuka puasa. Jangan lupa persiapkan diri untuk shalat Maghrib ya!</p></div></div>`;
             }
             
-            html += `<div class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex gap-3 shadow-sm"><div class="text-2xl">📢</div><div><b class="text-gray-800 text-sm">Info Poin Kebaikan</b><p class="text-xs text-gray-600 mt-1">Kumpulkan poin sebanyak-banyaknya di bulan penuh rahmat ini.</p></div></div>`;
+            html += `<div class="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex gap-4 shadow-sm hover:shadow-md transition-shadow"><div class="text-3xl bg-white p-2 rounded-xl shadow-sm h-fit">📢</div><div><b class="text-gray-800 text-sm font-extrabold block mb-1">Info Poin Kebaikan</b><p class="text-xs text-gray-500 font-medium leading-relaxed">Kumpulkan poin sebanyak-banyaknya di bulan penuh rahmat ini dengan rajin mengisi jurnal ibadah.</p></div></div>`;
             
             notifList.innerHTML = html;
             document.getElementById('notifBadge').classList.remove('hidden');
