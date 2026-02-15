@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Ruang Cahaya Ramadhan</title>
+  <title>Ruang Cahaya Ramadhan 2026</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,124 +11,172 @@
   
   <style>
     :root {
-      --primary-color: #0f766e; /* Teal Tua */
-      --secondary-color: #2dd4bf; /* Teal Muda */
-      --accent-color: #f59e0b; /* Emas */
-      --bg-color: #f0fdfa;
+      --primary-color: #0d9488; /* Emerald 600 */
+      --secondary-color: #2dd4bf; /* Teal 400 */
+      --accent-color: #f59e0b; /* Amber */
+      --bg-gradient: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+      --glass-bg: rgba(255, 255, 255, 0.95);
     }
 
     body { 
-      background-color: var(--bg-color); 
+      background: var(--bg-gradient);
       font-family: 'Poppins', sans-serif; 
       color: #334155;
-      background-image: radial-gradient(#ccfbf1 1px, transparent 1px);
-      background-size: 20px 20px;
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
 
+    /* Container Utama (App Shell) */
     .main-card { 
-      max-width: 480px; margin: 0 auto; border: none; 
-      min-height: 100vh; display: flex; flex-direction: column; 
+      width: 100%;
+      max-width: 480px; 
+      min-height: 100vh;
+      background: var(--glass-bg);
+      display: flex; 
+      flex-direction: column; 
+      position: relative;
+      box-shadow: 0 0 0 0 transparent;
     }
 
     @media(min-width: 500px) {
+      body { padding: 20px 0; align-items: center; }
       .main-card {
-        margin: 30px auto; border-radius: 25px; 
-        background: white; min-height: auto; 
-        box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1); overflow: hidden;
+        min-height: 85vh;
+        height: auto;
+        border-radius: 30px; 
+        box-shadow: 0 20px 40px -10px rgba(15, 118, 110, 0.15); 
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.8);
       }
+      /* Custom Scrollbar untuk Desktop */
+      .scroll-area::-webkit-scrollbar { width: 6px; }
+      .scroll-area::-webkit-scrollbar-track { background: #f1f1f1; }
+      .scroll-area::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     }
 
-    /* Header & Logo */
+    /* --- Header Styles --- */
     .header-app { 
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
-      color: white; padding: 30px 20px; 
-      border-radius: 0 0 30px 30px; position: relative; overflow: hidden;
+      background: url('https://img.freepik.com/free-vector/gradient-islamic-pattern-background_52683-33256.jpg') no-repeat center center;
+      background-size: cover;
+      position: relative;
+      color: white; 
+      padding: 30px 25px; 
+      border-radius: 0 0 35px 35px;
+      box-shadow: 0 10px 30px -10px rgba(13, 148, 136, 0.4);
+      z-index: 10;
     }
-    .header-app::before {
-      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-      animation: rotate 20s linear infinite;
+    .header-overlay {
+      position: absolute; top:0; left:0; right:0; bottom:0;
+      background: linear-gradient(135deg, rgba(13, 148, 136, 0.95), rgba(45, 212, 191, 0.8));
+      border-radius: 0 0 35px 35px;
+      z-index: 1;
     }
-    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .header-content { position: relative; z-index: 2; }
 
-    .logo-img { width: 100px; height: auto; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); animation: float 3s ease-in-out infinite; }
-    @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-
-    /* Jadwal Sholat Widget */
+    /* --- Widget Jadwal & Countdown --- */
     .jadwal-box {
-      background: white; border-radius: 15px; padding: 15px; margin-top: -30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); z-index: 10; position: relative;
+      background: white; border-radius: 20px; padding: 15px; margin-top: -35px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08); z-index: 20; position: relative;
+      border: 1px solid #f0fdfa;
     }
-    .time-item { text-align: center; position: relative; }
-    .time-item:not(:last-child)::after {
-      content: ''; position: absolute; right: 0; top: 10%; height: 80%; width: 1px; background: #e2e8f0;
+    .countdown-badge {
+      background: #ecfdf5; color: #047857; font-size: 0.75rem; 
+      padding: 4px 12px; border-radius: 20px; font-weight: 600;
+      display: inline-block; margin-bottom: 8px; border: 1px solid #d1fae5;
     }
-    .time-val { font-weight: 700; color: var(--primary-color); font-size: 1.1rem; }
-    .time-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
 
-    /* Form Styles */
-    .section-title { font-size: 0.85rem; font-weight: 700; color: var(--primary-color); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #ccfbf1; padding-bottom: 5px; display: inline-block; }
+    /* --- Form Elements --- */
+    .section-title { 
+      font-size: 0.9rem; font-weight: 700; color: var(--primary-color); 
+      margin: 20px 0 10px 0; display: flex; align-items: center; gap: 8px;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px; background: #e2e8f0;
+    }
     
     .form-control, .form-select {
-      border-radius: 12px; border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #f8fafc; font-size: 0.9rem;
+      border-radius: 15px; border: 1px solid #e2e8f0; 
+      padding: 12px 15px; background-color: #f8fafc; font-size: 0.9rem;
+      transition: all 0.3s;
     }
-    .form-control:focus { border-color: var(--secondary-color); box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1); background: white; }
-
-    /* Checkbox Styles */
-    .btn-check:checked + .btn-outline-success { background-color: var(--primary-color); border-color: var(--primary-color); color: white; }
-    .btn-outline-success { 
-      color: var(--primary-color); border-color: #cbd5e1; border-radius: 12px; 
-      font-size: 0.8rem; margin-right: 5px; margin-bottom: 8px; padding: 6px 12px;
-      flex-grow: 1; text-align: center;
-    }
-    .check-group { display: flex; flex-wrap: wrap; gap: 5px; }
-
-    /* Button & Hadis */
-    .btn-primary-gradient { background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); border: none; color: white; border-radius: 12px; padding: 12px; font-weight: 600; width: 100%; transition: 0.2s; }
-    .btn-primary-gradient:active { transform: scale(0.98); }
-
-    .hadis-card { 
-      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); 
-      color: white; border-radius: 15px; padding: 20px; 
-      position: relative; overflow: hidden; margin-bottom: 20px; 
-      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
-    }
-    .arab-text {
-      font-family: 'Amiri', serif;
-      font-size: 1.5rem;
-      line-height: 1.8;
-      direction: rtl;
-      text-align: center;
-      margin-bottom: 10px;
-      font-weight: 700;
+    .form-control:focus { 
+      border-color: var(--secondary-color); background: white;
+      box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.1); 
     }
 
-    /* Tools */
+    /* Checkbox Modern */
+    .btn-check:checked + .btn-outline-custom { 
+      background-color: var(--primary-color); border-color: var(--primary-color); color: white; 
+      transform: translateY(-2px); box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+    }
+    .btn-outline-custom { 
+      color: #64748b; border: 1px solid #e2e8f0; border-radius: 12px; 
+      font-size: 0.85rem; padding: 8px 10px; width: 100%; margin-bottom: 8px;
+      transition: all 0.2s ease; background: white; font-weight: 500;
+    }
+
+    /* Tasbih Digital Widget */
+    .tasbih-box {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: white; border-radius: 20px; padding: 15px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+    }
+    .tasbih-btn {
+      width: 50px; height: 50px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.2); color: white; display: flex; 
+      align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .tasbih-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.4); }
+
+    /* Footer */
+    .dev-footer {
+      font-size: 0.75rem; color: #94a3b8; text-align: center;
+      padding: 20px; margin-top: auto; border-top: 1px solid #f1f5f9;
+    }
+    .dev-footer a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+
+    /* Tools & Animations */
     .hidden { display: none !important; }
-    #loading { background: rgba(255, 255, 255, 0.9); z-index: 9999; }
-    .gps-badge { font-size: 0.7rem; padding: 4px 10px; border-radius: 20px; background: #e0f2fe; color: #0284c7; display: inline-flex; align-items: center; gap: 5px; }
-    .gps-badge.active { background: #dcfce7; color: #166534; }
+    #loading { background: rgba(255, 255, 255, 0.95); z-index: 9999; backdrop-filter: blur(5px); }
+    .arab-text { font-family: 'Amiri', serif; font-size: 1.4rem; line-height: 1.8; direction: rtl; }
+    
+    .btn-primary-gradient { 
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); 
+      border: none; color: white; border-radius: 15px; padding: 14px; 
+      font-weight: 600; width: 100%; letter-spacing: 0.5px;
+      box-shadow: 0 10px 20px -5px rgba(13, 148, 136, 0.4);
+    }
   </style>
 </head>
 <body>
 
   <div id="loading" class="hidden position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center">
-    <div class="spinner-border text-success" role="status"></div>
-    <p class="mt-3 fw-bold text-success">Memproses...</p>
+    <div class="spinner-grow text-success" role="status" style="width: 3rem; height: 3rem;"></div>
+    <p class="mt-3 fw-bold" style="color: var(--primary-color); letter-spacing: 1px;">Memuat Data...</p>
   </div>
 
   <div class="main-card">
     
     <div id="page-login" class="d-flex flex-column h-100">
-      <div class="header-app text-center d-flex flex-column justify-content-center align-items-center flex-grow-1">
-        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" class="logo-img mb-3">
-        <h2 class="fw-bold mb-0">Ruang Cahaya</h2>
-        <p class="opacity-75 small">Monitoring Ramadhan PKBM</p>
+      <div class="header-app text-center d-flex flex-column justify-content-center align-items-center flex-grow-1" style="border-radius: 0 0 50% 50% / 20px;">
+        <div class="header-overlay" style="border-radius: 0 0 50% 50% / 20px;"></div>
+        <div class="header-content">
+          <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" style="width: 100px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));" class="mb-3 animate-float">
+          <h2 class="fw-bold mb-0">Ruang Cahaya</h2>
+          <p class="opacity-75 small">Monitoring Ramadhan 2026</p>
+        </div>
       </div>
       
-      <div class="p-4 bg-white" style="border-radius: 30px 30px 0 0; margin-top: -20px; flex-grow: 1;">
-        <h5 class="fw-bold mb-4 text-center">Login Warga Belajar</h5>
+      <div class="p-4 bg-white" style="flex-grow: 1;">
+        <div class="text-center mb-4">
+          <h5 class="fw-bold text-dark">Ahlan Wa Sahlan</h5>
+          <p class="text-muted small">Silakan masuk untuk mengisi laporan harian.</p>
+        </div>
+        
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="username" placeholder="Username">
           <label>Username</label>
@@ -137,129 +185,164 @@
           <input type="password" class="form-control" id="pin" placeholder="PIN">
           <label>PIN</label>
         </div>
-        <button onclick="handleLogin()" class="btn btn-primary-gradient shadow-sm">MASUK <i class="fas fa-arrow-right ms-2"></i></button>
-        <div id="login-msg" class="alert alert-danger mt-3 hidden small text-center rounded-3"></div>
+        <button onclick="handleLogin()" class="btn btn-primary-gradient">
+          MASUK APLIKASI <i class="fas fa-arrow-right ms-2"></i>
+        </button>
+        <div id="login-msg" class="alert alert-danger mt-3 hidden small text-center rounded-3 border-0 bg-danger-subtle text-danger"></div>
+      </div>
+
+      <div class="dev-footer">
+        Development by <a href="https://www.komunitasngejah.web.id" target="_blank">Komunitas Ngejah</a>
       </div>
     </div>
 
     <div id="page-form" class="hidden h-100 bg-white d-flex flex-column">
       
       <div class="header-app pb-5">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-          <small class="opacity-75" id="date-now">Senin, 1 Ramadhan</small>
-          <button onclick="handleLogout()" class="btn btn-sm btn-light text-danger rounded-pill px-3 py-1" style="font-size: 0.7rem;">Logout</button>
-        </div>
-        <div class="d-flex align-items-center">
-            <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" style="width: 40px; margin-right: 10px; filter: brightness(0) invert(1);">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+          <div class="d-flex justify-content-between align-items-start mb-3">
             <div>
-                <h4 class="fw-bold mb-0" style="font-size: 0.9rem;">Ahlan Wa Sahlan,</h4>
-                <h2 class="fw-bold mb-0" style="font-size: 1.4rem;" id="display-name">Santri</h2>
+              <small class="opacity-75 d-block" id="date-hijri">Ramadhan 1447 H</small>
+              <h6 class="fw-bold mb-0" id="date-now">Senin, 17 Februari 2026</h6>
             </div>
+            <button onclick="handleLogout()" class="btn btn-sm btn-light text-danger rounded-pill px-3 py-1 shadow-sm border-0" style="font-size: 0.7rem; background: rgba(255,255,255,0.9);">
+              <i class="fas fa-power-off me-1"></i> Logout
+            </button>
+          </div>
+          <div class="d-flex align-items-center">
+              <div class="bg-white rounded-circle p-1 me-3 shadow-sm" style="width: 48px; height: 48px; display:flex; justify-content:center; align-items:center;">
+                <i class="fas fa-user text-success fa-lg"></i>
+              </div>
+              <div>
+                  <h4 class="fw-bold mb-0" style="font-size: 0.9rem; opacity: 0.9;">Selamat Berpuasa,</h4>
+                  <h2 class="fw-bold mb-0 text-white" style="font-size: 1.5rem;" id="display-name">Santri</h2>
+              </div>
+          </div>
         </div>
       </div>
 
-      <div class="px-4" style="flex: 1; overflow-y: auto; padding-bottom: 80px;">
+      <div class="px-4 scroll-area" style="flex: 1; overflow-y: auto; padding-bottom: 20px;">
         
-        <div class="jadwal-box d-flex justify-content-between mb-3">
-          <div class="time-item flex-fill">
-            <div class="time-label text-secondary">Imsak</div>
-            <div class="time-val" id="time-imsak">--:--</div>
-          </div>
-          <div class="time-item flex-fill">
-            <div class="time-label text-success">Subuh</div>
-            <div class="time-val" id="time-subuh">--:--</div>
-          </div>
-          <div class="time-item flex-fill">
-            <div class="time-label text-warning">Maghrib</div>
-            <div class="time-val" id="time-maghrib">--:--</div>
+        <div class="jadwal-box text-center">
+          <div class="countdown-badge" id="countdown-timer">Menunggu Waktu...</div>
+          <div class="d-flex justify-content-between mt-2">
+            <div class="time-item flex-fill border-end">
+              <div class="time-label text-secondary small">IMSAK</div>
+              <div class="time-val fw-bold text-dark" id="time-imsak">--:--</div>
+            </div>
+            <div class="time-item flex-fill border-end">
+              <div class="time-label text-success small">SUBUH</div>
+              <div class="time-val fw-bold text-dark" id="time-subuh">--:--</div>
+            </div>
+            <div class="time-item flex-fill">
+              <div class="time-label text-warning small">MAGHRIB</div>
+              <div class="time-val fw-bold text-dark" id="time-maghrib">--:--</div>
+            </div>
           </div>
         </div>
 
-        <div class="hadis-card shadow-sm text-center">
-            <i class="fas fa-star position-absolute top-0 start-0 p-3 opacity-25"></i>
-            <i class="fas fa-quote-right position-absolute bottom-0 end-0 p-3 opacity-25 fa-2x"></i>
-            <h6 class="fw-bold text-warning small mb-3">✨ MUTIARA HADIS</h6>
-            <div id="hadis-arab" class="arab-text">...</div>
-            <p class="fst-italic mb-2 small" id="hadis-indo" style="font-size: 0.9rem; line-height: 1.4;">"..."</p>
-            <div class="badge bg-white text-primary bg-opacity-90 mt-2" id="hadis-riwayat">-</div>
+        <div class="tasbih-box mt-3">
+          <div>
+            <small class="d-block opacity-75">Tasbih Digital</small>
+            <h2 class="fw-bold mb-0" id="tasbih-count">0</h2>
+          </div>
+          <div class="d-flex gap-2">
+            <div class="tasbih-btn" onclick="resetTasbih()" style="font-size: 1rem;"><i class="fas fa-undo"></i></div>
+            <div class="tasbih-btn" onclick="addTasbih()"><i class="fas fa-plus"></i></div>
+          </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: #fffbeb;">
+            <div class="card-body text-center p-3">
+              <h6 class="fw-bold text-warning small mb-2"><i class="fas fa-star me-1"></i> MUTIARA HADIS</h6>
+              <div id="hadis-arab" class="arab-text text-dark mb-1">...</div>
+              <p class="fst-italic mb-1 small text-secondary" id="hadis-indo">"..."</p>
+              <span class="badge bg-warning text-dark bg-opacity-25 rounded-pill mt-2" id="hadis-riwayat">-</span>
+            </div>
         </div>
 
         <form onsubmit="event.preventDefault(); handleUpload();">
           
           <div class="mb-3">
-            <div class="section-title"><i class="fas fa-quran me-1"></i> Tadarus Al-Qur'an</div>
-            <input type="text" id="tadarus" class="form-control" placeholder="Contoh: QS. Al-Baqarah ayat 1-20">
+            <div class="section-title"><i class="fas fa-book-open me-2"></i> Tadarus Al-Qur'an</div>
+            <input type="text" id="tadarus" class="form-control" placeholder="Contoh: Juz 1 atau QS. Al-Baqarah 1-50">
           </div>
 
-          <div class="mb-3">
-            <div class="section-title"><i class="fas fa-mosque me-1"></i> Sholat Wajib (Fardhu)</div>
-            <div class="check-group mb-3">
-              <input type="checkbox" class="btn-check sholat-check" id="s-subuh" value="Subuh">
-              <label class="btn btn-outline-success" for="s-subuh">Subuh</label>
-
-              <input type="checkbox" class="btn-check sholat-check" id="s-dzuhur" value="Dzuhur">
-              <label class="btn btn-outline-success" for="s-dzuhur">Dzuhur</label>
-              
-              <input type="checkbox" class="btn-check sholat-check" id="s-ashar" value="Ashar">
-              <label class="btn btn-outline-success" for="s-ashar">Ashar</label>
-
-              <input type="checkbox" class="btn-check sholat-check" id="s-maghrib" value="Maghrib">
-              <label class="btn btn-outline-success" for="s-maghrib">Maghrib</label>
-
-              <input type="checkbox" class="btn-check sholat-check" id="s-isya" value="Isya">
-              <label class="btn btn-outline-success" for="s-isya">Isya</label>
-            </div>
-
-            <div class="section-title"><i class="fas fa-hands-praying me-1"></i> Ibadah Sunnah</div>
-            <div class="check-group">
-              <input type="checkbox" class="btn-check sholat-check" id="s-tarawih" value="Tarawih">
-              <label class="btn btn-outline-success" for="s-tarawih">Tarawih & Witir</label>
-
-              <input type="checkbox" class="btn-check sholat-check" id="s-dhuha" value="Dhuha">
-              <label class="btn btn-outline-success" for="s-dhuha">Dhuha</label>
-
-              <input type="checkbox" class="btn-check sholat-check" id="s-tahajud" value="Tahajud">
-              <label class="btn btn-outline-success" for="s-tahajud">Tahajud</label>
-
-              <input type="checkbox" class="btn-check sholat-check" id="s-rawatib" value="Rawatib">
-              <label class="btn btn-outline-success" for="s-rawatib">Rawatib (Qobliyah/Ba'diyah)</label>
+          <div class="mb-4">
+            <div class="section-title"><i class="fas fa-mosque me-2"></i> Laporan Ibadah</div>
+            <p class="small text-muted mb-2">Pilih ibadah yang dikerjakan:</p>
+            
+            <div class="row g-2">
+              <div class="col-6">
+                <input type="checkbox" class="btn-check sholat-check" id="s-subuh" value="Subuh">
+                <label class="btn btn-outline-custom" for="s-subuh">Subuh</label>
+              </div>
+              <div class="col-6">
+                 <input type="checkbox" class="btn-check sholat-check" id="s-dzuhur" value="Dzuhur">
+                 <label class="btn btn-outline-custom" for="s-dzuhur">Dzuhur</label>
+              </div>
+              <div class="col-6">
+                 <input type="checkbox" class="btn-check sholat-check" id="s-ashar" value="Ashar">
+                 <label class="btn btn-outline-custom" for="s-ashar">Ashar</label>
+              </div>
+              <div class="col-6">
+                 <input type="checkbox" class="btn-check sholat-check" id="s-maghrib" value="Maghrib">
+                 <label class="btn btn-outline-custom" for="s-maghrib">Maghrib</label>
+              </div>
+              <div class="col-6">
+                 <input type="checkbox" class="btn-check sholat-check" id="s-isya" value="Isya">
+                 <label class="btn btn-outline-custom" for="s-isya">Isya</label>
+              </div>
+              <div class="col-6">
+                 <input type="checkbox" class="btn-check sholat-check" id="s-tarawih" value="Tarawih">
+                 <label class="btn btn-outline-custom" for="s-tarawih">Tarawih</label>
+              </div>
             </div>
           </div>
 
           <div class="mb-3">
-            <div class="section-title"><i class="fas fa-pen-fancy me-1"></i> Jurnal Ramadhan</div>
+            <div class="section-title"><i class="fas fa-pen-fancy me-2"></i> Jurnal Ramadhan</div>
             <div class="mb-2">
-              <label class="small fw-bold text-muted">Ringkasan Kultum / Tausiyah</label>
-              <textarea id="kultum" class="form-control" rows="2" placeholder="Judul / Isi materi singkat..."></textarea>
+              <textarea id="kultum" class="form-control" rows="2" placeholder="Ringkasan Kultum / Tausiyah..."></textarea>
             </div>
             <div>
-              <label class="small fw-bold text-muted">Kegiatan Sosial</label>
-              <input type="text" id="sosial" class="form-control" placeholder="Infak / Berbagi Takjil">
+              <input type="text" id="sosial" class="form-control" placeholder="Kegiatan Sosial (Infak/Sedekah)">
             </div>
           </div>
 
-          <div class="card border-0 bg-warning bg-opacity-10 mb-3">
+          <div class="card border-0 bg-primary bg-opacity-10 mb-3 rounded-4">
             <div class="card-body p-3">
-              <label class="fw-bold text-dark small mb-1"><i class="fas fa-clock me-1"></i> Kuis Harian (7 Menit)</label>
+              <label class="fw-bold text-primary small mb-1"><i class="fas fa-question-circle me-1"></i> Kuis Hari Ini</label>
               <div id="soal-kuis" class="fst-italic mb-2 text-dark small">Loading Soal...</div>
-              <input type="text" id="jawaban" class="form-control border-0 bg-white" placeholder="Jawaban kamu...">
+              <input type="text" id="jawaban" class="form-control border-0 bg-white" placeholder="Ketik jawabanmu...">
             </div>
           </div>
 
-          <div class="mb-3">
-            <div class="section-title"><i class="fas fa-camera me-1"></i> Bukti Kegiatan</div>
-            <input type="file" id="foto" class="form-control mb-2" accept="image/*">
-            <div class="d-flex justify-content-between align-items-center bg-light p-2 rounded">
-              <div id="gps-badge" class="gps-badge"><i class="fas fa-spinner fa-spin"></i> GPS</div>
-              <input type="hidden" id="gps-val" value="">
-              <button type="button" onclick="getGPS()" class="btn btn-sm btn-light text-secondary"><i class="fas fa-sync-alt"></i></button>
+          <div class="mb-4">
+            <div class="section-title"><i class="fas fa-camera me-2"></i> Bukti Kegiatan</div>
+            <div class="p-3 bg-light rounded-4 border">
+              <input type="file" id="foto" class="form-control mb-3" accept="image/*">
+              <div class="d-flex justify-content-between align-items-center">
+                <div id="gps-badge" class="gps-badge text-muted small"><i class="fas fa-map-marker-alt"></i> Menunggu GPS...</div>
+                <input type="hidden" id="gps-val" value="">
+                <button type="button" onclick="getGPS()" class="btn btn-sm btn-outline-secondary rounded-pill">
+                  <i class="fas fa-sync-alt me-1"></i> Update
+                </button>
+              </div>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary-gradient shadow mb-3">
+          <button type="submit" class="btn btn-primary-gradient mb-3">
             <i class="fas fa-paper-plane me-2"></i> KIRIM LAPORAN
           </button>
         </form>
+
+        <div class="dev-footer">
+          Development by <a href="https://www.komunitasngejah.web.id" target="_blank">Komunitas Ngejah</a>
+          <br> Ramadhan 1447 H / 2026 M
+        </div>
+
       </div>
     </div>
   </div>
@@ -272,49 +355,57 @@
   // ============================================
 
   let sessionUser = "";
-
-  // --- DATABASE HADIS (ARAB & INDO) ---
+  
+  // --- DATABASE HADIS ---
   const databaseHadis = [
     { arab: "مَنْ صَامَ رَمَضَانَ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ", indo: "Barangsiapa berpuasa Ramadhan karena iman dan mengharap pahala, maka diampuni dosanya yang telah lalu.", riwayat: "HR. Bukhari & Muslim" },
     { arab: "تَسَحَّرُوا فَإِنَّ فِي السَّحُورِ بَرَكَةً", indo: "Makan sahurlah kalian, sesungguhnya di dalam sahur itu terdapat keberkahan.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "إِذَا جَاءَ رَمَضَانُ فُتِّحَتْ أَبْوَابُ الْجَنَّةِ وَغُلِّقَتْ أَبْوَابُ النَّارِ", indo: "Jika datang bulan Ramadhan, pintu-pintu surga dibuka dan pintu-pintu neraka ditutup.", riwayat: "HR. Bukhari & Muslim" },
     { arab: "الصِّيَامُ جُنَّةٌ", indo: "Puasa itu adalah perisai (dari api neraka).", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "لَا يَزَالُ النَّاسُ بِخَيْرٍ مَا عَجَّلُوا الْفِطْرَ", indo: "Manusia senantiasa dalam kebaikan selama mereka menyegerakan berbuka puasa.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ", indo: "Sesungguhnya setiap amalan itu tergantung pada niatnya.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ", indo: "Sebaik-baik kalian adalah orang yang belajar Al-Qur’an dan mengajarkannya.", riwayat: "HR. Bukhari" },
-    { arab: "الطُّهُورُ شَطْرُ الْإِيمَانِ", indo: "Kebersihan itu sebagian dari iman.", riwayat: "HR. Muslim" },
-    { arab: "الدِّينُ النَّصِيحَةُ", indo: "Agama itu adalah nasihat.", riwayat: "HR. Muslim" },
-    { arab: "مَنْ لَا يَرْحَمْ لَا يُرْحَمْ", indo: "Barangsiapa tidak menyayangi, maka tidak akan disayangi.", riwayat: "HR. Bukhari" },
-    { arab: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ", indo: "Bertakwalah kepada Allah di mana pun engkau berada.", riwayat: "HR. Tirmidzi" },
-    { arab: "أَفْضَلُ الصَّدَقَةِ صَدَقَةٌ فِي رَمَضَانَ", indo: "Sedekah yang paling utama adalah sedekah di bulan Ramadhan.", riwayat: "HR. Tirmidzi" },
-    { arab: "عُمْرَةٌ فِي رَمَضَانَ تَعْدِلُ حَجَّةً", indo: "Umrah di bulan Ramadhan pahalanya seperti haji.", riwayat: "HR. Bukhari" },
-    { arab: "مَنْ قَامَ لَيْلَةَ الْقَدْرِ إِيمَانًا وَاحْتِسَابًا غُفِرَ لَهُ مَا تَقَدَّمَ مِنْ ذَنْبِهِ", indo: "Barangsiapa shalat pada malam Lailatul Qadar karena iman dan mengharap pahala, diampuni dosanya yang lalu.", riwayat: "HR. Bukhari" },
-    { arab: "كُلُّ مَعْرُوفٍ صَدَقَةٌ", indo: "Setiap kebaikan adalah sedekah.", riwayat: "HR. Bukhari" },
-    { arab: "الْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ", indo: "Perkataan yang baik adalah sedekah.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ", indo: "Siapa yang menempuh jalan untuk mencari ilmu, Allah mudahkan baginya jalan menuju surga.", riwayat: "HR. Muslim" },
-    { arab: "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ", indo: "Senyummu di hadapan saudaramu adalah sedekah bagimu.", riwayat: "HR. Tirmidzi" },
-    { arab: "أَحَبُّ الْأَعْمَالِ إِلَى اللَّهِ أَدْوَمُهَا وَإِنْ قَلَّ", indo: "Amalan yang paling dicintai Allah adalah yang terus-menerus meskipun sedikit.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "لَيْسَ الشَّدِيدُ بِالصُّرَعَةِ، إِنَّمَا الشَّدِيدُ الَّذِي يَمْلِكُ نَفْسَهُ عِنْدَ الْغَضَبِ", indo: "Orang kuat bukan yang pandai bergulat, tapi yang bisa menahan diri saat marah.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الْآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ", indo: "Siapa yang beriman kepada Allah dan hari akhir, hendaklah berkata baik atau diam.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "صِلْ مَنْ قَطَعَكَ", indo: "Sambunglah tali silaturahmi dengan orang yang memutusnya denganmu.", riwayat: "HR. Ahmad" },
-    { arab: "أَفْشُوا السَّلَامَ بَيْنَكُمْ", indo: "Sebarkanlah salam di antara kalian.", riwayat: "HR. Muslim" },
-    { arab: "الْيَدُ الْعُلْيَا خَيْرٌ مِنَ الْيَدِ السُّفْلَى", indo: "Tangan di atas lebih baik daripada tangan di bawah.", riwayat: "HR. Bukhari" },
-    { arab: "لَا تَغْضَبْ وَلَكَ الْجَنَّةُ", indo: "Jangan marah, maka bagimu surga.", riwayat: "HR. Thabrani" },
-    { arab: "رِضَا اللَّهِ فِي رِضَا الْوَالِدَيْنِ", indo: "Ridha Allah terletak pada ridha kedua orang tua.", riwayat: "HR. Tirmidzi" },
-    { arab: "الدُّعَاءُ مُخُّ الْعِبَادَةِ", indo: "Doa adalah inti ibadah.", riwayat: "HR. Tirmidzi" },
-    { arab: "خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ", indo: "Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain.", riwayat: "HR. Ahmad" },
-    { arab: "مَنْ غَشَّنَا فَلَيْسَ مِنَّا", indo: "Barangsiapa yang menipu kami, maka ia bukan dari golongan kami.", riwayat: "HR. Muslim" },
-    { arab: "المُسْلِمُ مَنْ سَلِمَ المُسْلِمُونَ مِنْ لِسَانِهِ وَيَدِهِ", indo: "Muslim sejati adalah yang muslim lainnya selamat dari lisan dan tangannya.", riwayat: "HR. Bukhari" },
-    { arab: "إِنَّ الصِّدْقَ يَهْدِي إِلَى الْبِرِّ", indo: "Sesungguhnya kejujuran mengantarkan kepada kebaikan.", riwayat: "HR. Bukhari & Muslim" },
-    { arab: "لَا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لِأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ", indo: "Tidak sempurna iman salah seorang dari kalian hingga ia mencintai saudaranya seperti mencintai dirinya sendiri.", riwayat: "HR. Bukhari" },
-    { arab: "مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ فَهُوَ رَدٌّ", indo: "Barangsiapa mengada-ada dalam urusan agama kami yang bukan darinya, maka tertolak.", riwayat: "HR. Bukhari & Muslim" }
-    // List ini akan diacak sehingga terasa selalu baru setiap hari
+    { arab: "أَفْضَلُ الصَّدَقَةِ صَدَقَةٌ فِي رَمَضَانَ", indo: "Sedekah yang paling utama adalah sedekah di bulan Ramadhan.", riwayat: "HR. Tirmidzi" }
   ];
 
   // --- INIT ---
   function init() {
     updateClock();
+    setInterval(updateClock, 1000); // Realtime clock
     loadRandomHadis();
+    
+    // Auto Login Check (Lock Mechanism)
+    const savedSession = localStorage.getItem('userSession');
+    if (savedSession) {
+        const userData = JSON.parse(savedSession);
+        loadDashboard(userData);
+    } else {
+        document.getElementById('page-login').classList.remove('hidden');
+    }
+  }
+
+  // --- TIME & FEATURES ---
+  function updateClock() {
+    const now = new Date();
+    // Format Tanggal Indo
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    document.getElementById('date-now').innerText = now.toLocaleDateString('id-ID', options);
+    
+    // Countdown Maghrib Logic (Sederhana)
+    const maghribTime = document.getElementById('time-maghrib').innerText;
+    if(maghribTime !== "--:--") {
+      const [hours, minutes] = maghribTime.split(':');
+      const target = new Date();
+      target.setHours(parseInt(hours), parseInt(minutes), 0);
+      
+      const diff = target - now;
+      if (diff > 0) {
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById('countdown-timer').innerHTML = `⏳ Berbuka dalam: ${h}j ${m}m ${s}d`;
+        document.getElementById('countdown-timer').className = 'countdown-badge text-success bg-success-subtle';
+      } else {
+        document.getElementById('countdown-timer').innerHTML = `🌙 Waktunya Berbuka!`;
+        document.getElementById('countdown-timer').className = 'countdown-badge text-white bg-success';
+      }
+    }
   }
 
   function loadRandomHadis() {
@@ -324,13 +415,12 @@
     document.getElementById('hadis-riwayat').innerText = data.riwayat;
   }
 
-  function updateClock() {
-    const now = new Date();
-    const options = { weekday: 'long', day: 'numeric', month: 'long' };
-    document.getElementById('date-now').innerText = now.toLocaleDateString('id-ID', options);
-  }
+  // Tasbih Logic
+  let count = 0;
+  function addTasbih() { count++; document.getElementById('tasbih-count').innerText = count; }
+  function resetTasbih() { count = 0; document.getElementById('tasbih-count').innerText = count; }
 
-  // --- LOGIC LOGIN & DATA ---
+  // --- AUTHENTICATION ---
   async function handleLogin() {
     const u = document.getElementById('username').value;
     const p = document.getElementById('pin').value;
@@ -343,46 +433,59 @@
     toggleLoading(false);
 
     if (result.success) {
-      sessionUser = result.nama;
-      document.getElementById('display-name').innerText = result.nama.split(' ')[0];
-      document.getElementById('soal-kuis').innerText = result.kuis;
-      
-      // Parse Jadwal Sederhana
-      try {
-         document.getElementById('time-imsak').innerText = "04:15"; 
-         document.getElementById('time-subuh').innerText = "04:30";
-         document.getElementById('time-maghrib').innerText = "18:00";
-         if(result.jadwal && result.jadwal.includes('|')) {
-            const parts = result.jadwal.split('|');
-            parts.forEach(p => {
-                if(p.toLowerCase().includes('imsak')) document.getElementById('time-imsak').innerText = p.split(' ')[1];
-                if(p.toLowerCase().includes('subuh')) document.getElementById('time-subuh').innerText = p.split(' ')[1];
-                if(p.toLowerCase().includes('maghrib')) document.getElementById('time-maghrib').innerText = p.split(' ')[1];
-            });
-         }
-      } catch(e) { console.log(e); }
-
-      document.getElementById('page-login').classList.add('hidden');
-      document.getElementById('page-form').classList.remove('hidden');
-      getGPS();
+      localStorage.setItem('userSession', JSON.stringify(result)); // Lock Session
+      loadDashboard(result);
     } else {
       showLoginError(result.message);
     }
   }
 
+  function loadDashboard(userData) {
+      sessionUser = userData.nama;
+      document.getElementById('display-name').innerText = userData.nama.split(' ')[0];
+      document.getElementById('soal-kuis').innerText = userData.kuis || "Tidak ada kuis hari ini";
+      
+      // Default Jadwal (Estimasi Ramadhan 2026)
+      let imsak = "04:25"; let subuh = "04:35"; let maghrib = "18:15";
+      
+      if(userData.jadwal && userData.jadwal.includes('|')) {
+         const parts = userData.jadwal.split('|');
+         parts.forEach(p => {
+             if(p.toLowerCase().includes('imsak')) imsak = p.split(' ')[1];
+             if(p.toLowerCase().includes('subuh')) subuh = p.split(' ')[1];
+             if(p.toLowerCase().includes('maghrib')) maghrib = p.split(' ')[1];
+         });
+      }
+      
+      document.getElementById('time-imsak').innerText = imsak;
+      document.getElementById('time-subuh').innerText = subuh;
+      document.getElementById('time-maghrib').innerText = maghrib;
+
+      document.getElementById('page-login').classList.add('hidden');
+      document.getElementById('page-form').classList.remove('hidden');
+      getGPS();
+  }
+
+  function handleLogout() { 
+      if(confirm("Keluar aplikasi?")) {
+          localStorage.removeItem('userSession');
+          location.reload();
+      }
+  }
+
+  // --- SUBMISSION ---
   async function handleUpload() {
     const tadarus = document.getElementById('tadarus').value || "-";
     const kultum = document.getElementById('kultum').value || "-";
     const sosial = document.getElementById('sosial').value || "-";
     const jawaban = document.getElementById('jawaban').value || "-";
     
-    // Ambil Semua Checkbox Sholat
     let sholatList = [];
     document.querySelectorAll('.sholat-check:checked').forEach((checkbox) => {
         sholatList.push(checkbox.value);
     });
-    
     const sholatStr = sholatList.length > 0 ? sholatList.join(", ") : "Tidak ada";
+    
     const combinedKegiatan = `[Tadarus: ${tadarus}] \n[Sholat: ${sholatStr}] \n[Kultum: ${kultum}] \n[Sosial: ${sosial}]`;
 
     toggleLoading(true);
@@ -391,7 +494,7 @@
     let base64File = null; let fileName = null;
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      if(file.size > 2 * 1024 * 1024) { toggleLoading(false); return alert("Foto Max 2MB"); }
+      if(file.size > 2 * 1024 * 1024) { toggleLoading(false); return alert("Ukuran Foto Maksimal 2MB!"); }
       base64File = await toBase64(file);
       fileName = file.name;
     }
@@ -410,16 +513,19 @@
     toggleLoading(false);
     
     if(result.success) {
-      alert("✅ Laporan Harian Berhasil Disimpan!");
+      // Tampilkan Modal Sukses (SweetAlert style simple)
+      alert("✅ Alhamdulillah! Laporan berhasil dikirim.");
       document.getElementById('page-form').querySelector('form').reset();
-      loadRandomHadis(); // Ganti hadis setelah lapor biar fresh
+      // Reset checkboxes
+      document.querySelectorAll('.sholat-check').forEach(c => c.checked = false);
+      loadRandomHadis();
       getGPS();
     } else {
-      alert("❌ Gagal: " + result.message);
+      alert("❌ Gagal mengirim: " + result.message);
     }
   }
 
-  // --- HELPER ---
+  // --- UTILS ---
   function toggleLoading(show) {
     const el = document.getElementById('loading');
     if(show) el.classList.remove('hidden'); else el.classList.add('hidden');
@@ -427,8 +533,6 @@
   function showLoginError(msg) {
     const el = document.getElementById('login-msg'); el.innerText = msg; el.classList.remove('hidden');
   }
-  function handleLogout() { if(confirm("Keluar aplikasi?")) location.reload(); }
-
   async function postData(payload) {
     try {
       const res = await fetch(SCRIPT_URL, {
@@ -436,25 +540,28 @@
       });
       if (!res.ok) throw new Error("Network Error");
       return await res.json();
-    } catch (e) { return { success: false, message: "Koneksi Gagal" }; }
+    } catch (e) { return { success: false, message: "Koneksi Internet Bermasalah" }; }
   }
-
   const toBase64 = file => new Promise((resolve, reject) => {
     const reader = new FileReader(); reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error);
   });
-
   function getGPS() {
     const badge = document.getElementById('gps-badge');
     const input = document.getElementById('gps-val');
-    badge.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    badge.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mencari Lokasi...';
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           input.value = pos.coords.latitude + "," + pos.coords.longitude;
-          badge.className = 'gps-badge active'; badge.innerHTML = '<i class="fas fa-map-marker-alt"></i> Aktif';
+          badge.className = 'gps-badge text-success small fw-bold'; 
+          badge.innerHTML = '<i class="fas fa-check-circle"></i> Lokasi Terkunci';
         },
-        () => { badge.className = 'gps-badge text-danger bg-danger-subtle'; badge.innerHTML = 'Gagal'; input.value = "GPS Error"; }
+        () => { 
+          badge.className = 'gps-badge text-danger small'; 
+          badge.innerHTML = '<i class="fas fa-times-circle"></i> GPS Gagal/Nonaktif'; 
+          input.value = "GPS Error"; 
+        }
       );
     }
   }
