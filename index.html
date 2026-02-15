@@ -7,9 +7,9 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
-    body { background-color: #f0f2f5; font-family: sans-serif; }
-    .main-card { max-width: 480px; margin: 20px auto; border-radius: 15px; border:none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    .header-app { background: linear-gradient(to right, #11998e, #38ef7d); color: white; padding: 20px; border-radius: 15px 15px 0 0; text-align: center; }
+    body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .main-card { max-width: 480px; margin: 20px auto; border-radius: 15px; border:none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); overflow: hidden; }
+    .header-app { background: linear-gradient(135deg, #11998e, #38ef7d); color: white; padding: 25px; text-align: center; }
     .hidden { display: none !important; }
     
     /* Loading Overlay */
@@ -19,64 +19,72 @@
 <body>
 
   <div id="loading" class="hidden">
-    <div class="spinner-border text-success" role="status"></div>
-    <p class="mt-2 fw-bold text-success">Menghubungkan ke Server...</p>
+    <div class="spinner-border text-success" role="status" style="width: 3rem; height: 3rem;"></div>
+    <p class="mt-3 fw-bold text-success">Memproses...</p>
   </div>
 
   <div class="container">
     
     <div id="page-login" class="card main-card">
       <div class="header-app">
-        <h3>Ruang Cahaya</h3>
+        <h3><i class="fas fa-mosque"></i> Ruang Cahaya</h3>
         <small>Portal Laporan Santri</small>
       </div>
       <div class="card-body p-4">
         <div class="mb-3">
-          <label>Username</label>
-          <input type="text" id="username" class="form-control" placeholder="user...">
+          <label class="form-label fw-bold">Username</label>
+          <input type="text" id="username" class="form-control form-control-lg" placeholder="Masukkan username">
         </div>
-        <div class="mb-3">
-          <label>PIN</label>
-          <input type="password" id="pin" class="form-control" placeholder="****">
+        <div class="mb-4">
+          <label class="form-label fw-bold">PIN</label>
+          <input type="password" id="pin" class="form-control form-control-lg" placeholder="****">
         </div>
-        <button onclick="handleLogin()" class="btn btn-success w-100 fw-bold">MASUK</button>
-        <div id="login-msg" class="text-danger small mt-2 text-center"></div>
+        <button onclick="handleLogin()" class="btn btn-success w-100 py-2 fw-bold">MASUK</button>
+        <div id="login-msg" class="alert alert-danger mt-3 hidden small text-center"></div>
       </div>
     </div>
 
     <div id="page-form" class="card main-card hidden">
       <div class="header-app py-3">
-        <h5 id="display-name" class="mb-0">Halo, User</h5>
+        <h5 id="display-name" class="mb-0 fw-bold">Halo, User</h5>
       </div>
       <div class="card-body p-4">
         
-        <div class="alert alert-success py-2 small">
-          <i class="fas fa-calendar-alt"></i> <span id="info-jadwal">-</span>
+        <div class="alert alert-success py-2 small shadow-sm">
+          <i class="fas fa-calendar-alt me-2"></i> <span id="info-jadwal">Memuat jadwal...</span>
         </div>
 
-        <div class="mb-3">
-          <label class="fw-bold">Kegiatan</label>
-          <textarea id="kegiatan" class="form-control" rows="2"></textarea>
-        </div>
+        <form onsubmit="event.preventDefault(); handleUpload();">
+          <div class="mb-3">
+            <label class="fw-bold">Kegiatan Hari Ini</label>
+            <textarea id="kegiatan" class="form-control" rows="2" placeholder="Contoh: Tadarus, Dhuha..."></textarea>
+          </div>
 
-        <div class="mb-3">
-          <label class="fw-bold">Kuis: <span id="soal-kuis" class="fw-normal fst-italic">...</span></label>
-          <input type="text" id="jawaban" class="form-control" placeholder="Jawaban...">
-        </div>
+          <div class="mb-3">
+            <label class="fw-bold text-success">Kuis Harian</label>
+            <div id="soal-kuis" class="p-2 bg-light border rounded mb-2 small fst-italic text-muted">...</div>
+            <input type="text" id="jawaban" class="form-control" placeholder="Jawaban kamu...">
+          </div>
 
-        <div class="mb-3">
-          <label class="fw-bold">Foto</label>
-          <input type="file" id="foto" class="form-control">
-          <small class="text-muted" style="font-size:10px">Max 2MB</small>
-        </div>
+          <div class="mb-3">
+            <label class="fw-bold">Foto Dokumentasi</label>
+            <input type="file" id="foto" class="form-control" accept="image/*">
+            <div class="form-text text-danger small">*Maksimal 2MB</div>
+          </div>
 
-        <div class="mb-3">
-          <label class="fw-bold">Lokasi</label>
-          <input type="text" id="gps-val" class="form-control form-control-sm mb-1" readonly value="Mencari...">
-          <button onclick="getGPS()" class="btn btn-sm btn-outline-secondary w-100">Refresh GPS</button>
-        </div>
+          <div class="mb-3">
+            <label class="fw-bold">Lokasi Anda</label>
+            <div class="input-group input-group-sm">
+              <input type="text" id="gps-val" class="form-control" readonly value="Mencari GPS...">
+              <button type="button" onclick="getGPS()" class="btn btn-outline-secondary"><i class="fas fa-sync-alt"></i></button>
+            </div>
+          </div>
 
-        <button onclick="handleUpload()" class="btn btn-success w-100 fw-bold">KIRIM LAPORAN</button>
+          <button type="submit" class="btn btn-success w-100 py-2 fw-bold">
+            <i class="fas fa-paper-plane me-2"></i> KIRIM LAPORAN
+          </button>
+        </form>
+
       </div>
     </div>
 
@@ -84,9 +92,10 @@
 
 <script>
   // ============================================
-  // MASUKKAN URL DEPLOYMENT APPS SCRIPT DI SINI
+  // PASTE URL WEB APP (DEPLOYMENT BARU) DI SINI
+  // Pastikan akhiran url adalah /exec
   // ============================================
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6FH38B70DA8FsqNt1QziSIcchCWggsyhKCwdtcZM6Et1UqbORo4hbZadf4PtqtV3IKw/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2kbYtM_7kqKm2NOCmwpEAlmxFEEyjfT9xUvEiM6DLpPv5f1yst04KtxEuo7ugYMSH/exec"; 
   // ============================================
 
   let sessionUser = "";
@@ -96,18 +105,28 @@
     if(show) el.classList.remove('hidden'); else el.classList.add('hidden');
   }
 
-  // --- 1. FUNGSI FETCH KE GOOGLE APPS SCRIPT ---
-  // Kita menggunakan 'text/plain' agar tidak terkena CORS Preflight
+  function showLoginError(msg) {
+    const el = document.getElementById('login-msg');
+    el.innerText = msg;
+    el.classList.remove('hidden');
+  }
+
+  // --- 1. FUNGSI FETCH (ANTI CORS) ---
+  // Menggunakan 'text/plain' agar browser tidak mengirim preflight request (OPTIONS)
+  // yang sering diblokir oleh Google.
   async function postData(payload) {
     try {
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
+      
+      if (!response.ok) throw new Error("Server sibuk atau URL salah.");
       return await response.json();
     } catch (error) {
-      alert("Gagal koneksi: " + error);
-      return { success: false };
+      console.error(error);
+      return { success: false, message: "Gagal Koneksi: " + error.message };
     }
   }
 
@@ -115,11 +134,11 @@
   async function handleLogin() {
     const u = document.getElementById('username').value;
     const p = document.getElementById('pin').value;
-    if(!u || !p) return alert("Isi lengkap!");
+    if(!u || !p) return showLoginError("Username dan PIN harus diisi!");
 
     toggleLoading(true);
+    document.getElementById('login-msg').classList.add('hidden');
     
-    // Kirim data login ke server
     const result = await postData({ 
       action: 'login', 
       username: u, 
@@ -137,16 +156,18 @@
       // Pindah Halaman
       document.getElementById('page-login').classList.add('hidden');
       document.getElementById('page-form').classList.remove('hidden');
+      
+      // Jalankan GPS
       getGPS();
     } else {
-      document.getElementById('login-msg').innerText = result.message;
+      showLoginError(result.message);
     }
   }
 
   // --- 3. UPLOAD ---
   async function handleUpload() {
     const keg = document.getElementById('kegiatan').value;
-    if(!keg) return alert("Isi kegiatan!");
+    if(!keg) return alert("Wajib isi kolom kegiatan!");
 
     toggleLoading(true);
 
@@ -160,19 +181,24 @@
     if (file) {
       if(file.size > 2 * 1024 * 1024) { 
         toggleLoading(false); 
-        return alert("Foto terlalu besar (Max 2MB)"); 
+        return alert("Foto terlalu besar! Maksimal 2MB."); 
       }
-      base64File = await toBase64(file);
-      fileName = file.name;
+      try {
+        base64File = await toBase64(file);
+        fileName = file.name;
+      } catch (e) {
+        toggleLoading(false);
+        return alert("Gagal memproses foto.");
+      }
     }
 
-    // Kirim data upload ke server
+    // Kirim data ke server
     const result = await postData({
       action: 'simpan',
       nama: sessionUser,
       kegiatan: keg,
       poin: document.getElementById('jawaban').value,
-      catatan: "", // Opsional
+      catatan: "", 
       lokasi: document.getElementById('gps-val').value,
       fileData: base64File,
       fileName: fileName
@@ -182,8 +208,10 @@
     alert(result.message);
     
     if(result.success) {
+      // Reset Form
       document.getElementById('kegiatan').value = "";
       document.getElementById('foto').value = "";
+      document.getElementById('jawaban').value = "";
     }
   }
 
@@ -197,13 +225,21 @@
 
   // --- Helper: GPS ---
   function getGPS() {
+    const el = document.getElementById('gps-val');
+    el.value = "Mencari...";
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          document.getElementById('gps-val').value = pos.coords.latitude + ", " + pos.coords.longitude;
+          el.value = pos.coords.latitude + ", " + pos.coords.longitude;
         },
-        () => { document.getElementById('gps-val').value = "GPS Gagal/Ditolak"; }
+        (err) => { 
+          el.value = "GPS Gagal/Ditolak"; 
+          alert("Pastikan izin lokasi diaktifkan di browser Anda.");
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
       );
+    } else {
+      el.value = "Browser tidak support GPS";
     }
   }
 </script>
