@@ -4,140 +4,205 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Ruang Cahaya Ramadhan</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { theme: { extend: { colors: { cahaya: { emas: '#D4AF37', malam: '#0F172A', langit: '#1E293B' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                    colors: {
+                        cahaya: {
+                            emas: '#D4AF37',
+                            emasTerang: '#FBEB98',
+                            malam: '#0F172A',
+                            langit: '#1E293B'
+                        }
+                    },
+                    backgroundImage: {
+                        'ramadhan-pattern': "url('https://www.transparenttextures.com/patterns/arabesque.png')"
+                    }
+                }
+            }
+        }
     </script>
-    <style> body { touch-action: manipulation; } </style>
+    <style>
+        body { touch-action: manipulation; }
+        /* Custom Scrollbar for desktop */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+    </style>
 </head>
-<body class="bg-gray-50 text-cahaya-malam font-sans min-h-screen">
+<body class="bg-cahaya-malam text-cahaya-malam font-sans min-h-screen bg-ramadhan-pattern bg-fixed flex justify-center">
 
-    <section id="login-container" class="min-h-screen flex flex-col items-center justify-center bg-cahaya-malam p-6">
-        <div class="bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl text-center border-t-4 border-cahaya-emas">
-            <div class="flex justify-center mb-4">
-                <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo_pkbm.png" alt="Logo PKBM" class="h-24 w-auto object-contain">
-            </div>
-            <h1 class="text-2xl font-bold text-gray-800 mb-1">Ruang Cahaya</h1>
-            <p class="text-sm text-gray-500 mb-6">Silakan masuk untuk melanjutkan</p>
+    <div class="w-full max-w-md bg-gray-50 min-h-screen shadow-2xl relative overflow-x-hidden flex flex-col">
+
+        <section id="login-container" class="flex-1 flex flex-col items-center justify-center p-6 bg-gradient-to-b from-cahaya-malam to-cahaya-langit text-white bg-ramadhan-pattern relative">
+            <div class="absolute top-10 left-10 text-4xl opacity-20">🌙</div>
+            <div class="absolute top-20 right-10 text-2xl opacity-20">⭐</div>
             
-            <form id="formLogin" class="space-y-4">
-                <input type="text" id="loginUsername" placeholder="Username / NISN" required class="w-full p-3 border rounded-xl bg-gray-50 outline-none focus:ring-2 focus:ring-cahaya-emas">
-                <input type="password" id="loginPin" placeholder="PIN" required class="w-full p-3 border rounded-xl bg-gray-50 outline-none focus:ring-2 focus:ring-cahaya-emas">
-                <button type="submit" id="btnLogin" class="w-full bg-gradient-to-r from-cahaya-emas to-yellow-600 text-white font-bold py-3.5 rounded-xl hover:shadow-lg transition-all">Masuk</button>
-            </form>
-
-            <div class="mt-8 pt-6 border-t border-gray-100">
-                <p class="text-[10px] text-gray-400 mb-3 font-semibold uppercase">Didukung Penuh Oleh</p>
-                <div class="flex justify-center items-center gap-4 opacity-70 grayscale hover:grayscale-0 transition-all">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/komunitasngejah.png" class="h-6">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo_kangruli.png" class="h-6">
-                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo%20tbm%20aiueo.png" class="h-6">
+            <div class="bg-white rounded-[2rem] p-8 w-full max-w-sm shadow-[0_0_30px_rgba(212,175,55,0.15)] text-center border-t-8 border-cahaya-emas relative z-10">
+                <div class="flex justify-center mb-2">
+                    <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo_pkbm.png" alt="Logo PKBM" class="h-20 w-auto object-contain">
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="app-container" class="hidden pb-20">
-        <header class="bg-cahaya-malam text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
-            <div class="flex justify-between items-start z-10 relative">
-                <div>
-                    <h1 class="text-xl font-bold">Assalamualaikum,</h1>
-                    <p id="namaHeader" class="text-lg font-medium text-white mb-1">Warga Belajar!</p>
-                    <p class="text-cahaya-emas text-xs font-semibold uppercase">PKBM Celah Cahaya</p>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <button onclick="toggleNotifikasi()" class="relative p-2 bg-white/10 rounded-full border border-cahaya-emas/30 backdrop-blur-sm">
-                        <span class="text-lg">🔔</span>
-                        <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full hidden">1</span>
+                
+                <p class="text-cahaya-emas text-xs font-bold tracking-widest uppercase mb-1">Marhaban Ya Ramadhan</p>
+                <h1 class="text-2xl font-extrabold text-gray-800 mb-1">Ruang Cahaya</h1>
+                <p class="text-sm text-gray-500 mb-8">Silakan masuk untuk memulai perjalanan</p>
+                
+                <form id="formLogin" class="space-y-5">
+                    <div class="relative">
+                        <input type="text" id="loginUsername" placeholder="Username / NISN" required class="w-full p-3.5 pl-10 border border-gray-200 rounded-xl bg-gray-50 text-gray-800 outline-none focus:ring-2 focus:ring-cahaya-emas focus:bg-white transition-all">
+                        <span class="absolute left-3.5 top-3.5 text-gray-400">👤</span>
+                    </div>
+                    <div class="relative">
+                        <input type="password" id="loginPin" placeholder="PIN" required class="w-full p-3.5 pl-10 border border-gray-200 rounded-xl bg-gray-50 text-gray-800 outline-none focus:ring-2 focus:ring-cahaya-emas focus:bg-white transition-all">
+                        <span class="absolute left-3.5 top-3.5 text-gray-400">🔒</span>
+                    </div>
+                    <button type="submit" id="btnLogin" class="w-full bg-gradient-to-r from-[#D4AF37] to-[#B5952F] text-white font-bold py-3.5 rounded-xl hover:shadow-[0_0_15px_rgba(212,175,55,0.5)] active:scale-[0.98] transition-all">
+                        Masuk
                     </button>
-                    <div class="bg-white/10 p-1 rounded-full border border-cahaya-emas/30 backdrop-blur-sm">
-                        <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo_pkbm.png" class="h-8 w-8 object-contain rounded-full">
-                    </div>
-                </div>
-            </div>
-            
-            <div id="progress-container" class="mt-6 bg-cahaya-langit rounded-full p-3 flex items-center shadow-inner border border-cahaya-emas/20">
-                <div class="bg-cahaya-emas h-10 w-10 rounded-full flex items-center justify-center"><span class="text-lg">💡</span></div>
-                <div class="ml-4 flex-1">
-                    <p class="text-xs text-gray-300 mb-1">Cahaya Kamu Hari Ini</p>
-                    <div class="w-full bg-gray-700 rounded-full h-2"><div class="bg-cahaya-emas h-2 rounded-full" style="width: 80%"></div></div>
-                </div>
-            </div>
-        </header>
-
-        <div class="mx-6 mt-[-15px] relative z-10 bg-white p-3 rounded-xl shadow-md border border-gray-100 flex justify-between items-center">
-            <div><p class="text-xs text-gray-500">Jadwal Hari Ini</p><p class="font-bold text-sm text-cahaya-malam">Maghrib: 18:00 WIB</p></div>
-            <div class="text-xl">🌅</div>
-        </div>
-
-        <main class="p-6 max-w-md mx-auto">
-            <section id="menu-warga" class="grid grid-cols-2 gap-4">
-                <button onclick="alert('Kuis belum tersedia')" class="flex flex-col items-center justify-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 active:scale-95">
-                    <span class="text-3xl mb-2">🧠</span><span class="font-semibold text-sm">Kuis 7 Menit</span>
-                </button>
-                <button onclick="toggleFormSetor()" class="flex flex-col items-center justify-center p-4 bg-yellow-50 rounded-xl shadow-sm border border-cahaya-emas/30 active:scale-95">
-                    <span class="text-3xl mb-2">🤲</span><span class="font-semibold text-sm">Setor Ibadah</span>
-                </button>
-                <button onclick="keluar()" class="col-span-2 flex items-center justify-center p-3 bg-red-50 text-red-600 rounded-xl border border-red-100 mt-2">
-                    <span class="mr-2">🚪</span> Keluar Aplikasi
-                </button>
-            </section>
-
-            <section id="menu-admin" class="hidden grid grid-cols-1 gap-4">
-                <div class="bg-blue-50 p-4 rounded-xl border border-blue-200 text-center">
-                    <span class="text-3xl block mb-2">👨‍🏫</span>
-                    <h3 class="font-bold text-blue-800">Mode Tutor / Admin</h3>
-                    <p class="text-xs text-blue-600 mt-1">Buka Google Sheets di laptop untuk melihat setoran & foto warga belajar secara lengkap.</p>
-                </div>
-                <button onclick="keluar()" class="flex items-center justify-center p-3 bg-red-50 text-red-600 rounded-xl border border-red-100">
-                    <span class="mr-2">🚪</span> Keluar Akun
-                </button>
-            </section>
-
-            <section id="form-setor-section" class="hidden mt-6 bg-white p-6 rounded-2xl shadow-md border-t-4 border-cahaya-emas">
-                <h2 class="font-bold text-lg mb-4">📝 Setor Aktivitas</h2>
-                <form id="formSetorData">
-                    <input type="hidden" id="namaWargaForm" name="nama_warga">
-                    
-                    <div class="mb-4">
-                        <label class="block text-sm text-gray-700 mb-1">Pilih Kegiatan</label>
-                        <select name="pilihan_kegiatan" required class="w-full p-3 border rounded-lg bg-white outline-none">
-                            <option value="">-- Pilih Salah Satu --</option>
-                            <option>Shalat 5 Waktu (5 Poin)</option>
-                            <option>Tarawih & Witir (5 Poin)</option>
-                            <option>Tadarus Al-Quran (10 Poin)</option>
-                            <option>Membantu Orang Tua (10 Poin)</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-6">
-                        <label class="block text-sm text-gray-700 mb-1">Foto Bukti (Opsional)</label>
-                        <input name="fileFoto" type="file" accept="image/*" capture="user" class="w-full text-sm border p-2 rounded-lg">
-                    </div>
-
-                    <button type="submit" id="btnSubmitSetor" class="w-full bg-cahaya-emas text-white font-bold p-3 rounded-xl">Kirim Cahaya ✨</button>
-                    <button type="button" onclick="toggleFormSetor()" class="w-full mt-2 text-gray-500 text-sm">Batal</button>
                 </form>
-            </section>
-        </main>
 
-        <footer class="mt-8 mb-4 text-center">
-            <p class="text-[10px] text-gray-400 mb-2 uppercase tracking-widest">Kolaborasi Kebaikan</p>
-            <div class="flex justify-center items-center gap-4 opacity-80 grayscale bg-white p-2 mx-6 rounded-xl border border-gray-100">
-                <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logokangruli.png" class="h-6">
-                <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo_Komunitas_ngejah.png" class="h-6">
-                <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-6">
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    <p class="text-[10px] text-gray-400 mb-3 font-semibold uppercase tracking-wider">Kolaborasi Kebaikan</p>
+                    <div class="flex justify-center items-center gap-4 opacity-60 hover:opacity-100 transition-opacity">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/komunitasngejah.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo_kangruli.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                        <img src="https://raw.githubusercontent.com/pkbmcelahcahaya/ruang-cahaya-ramadhan/blob/main/img/logo%20tbm%20aiueo.png" class="h-5 grayscale hover:grayscale-0 transition-all">
+                    </div>
+                </div>
             </div>
-        </footer>
+        </section>
+
+        <div id="app-container" class="hidden flex-1 flex flex-col pb-6">
+            
+            <header class="bg-gradient-to-br from-cahaya-malam to-cahaya-langit text-white p-6 rounded-b-[2.5rem] shadow-lg relative overflow-hidden bg-ramadhan-pattern">
+                <div class="absolute -right-4 -top-4 text-6xl opacity-10">🕌</div>
+                
+                <div class="flex justify-between items-start z-10 relative mt-2">
+                    <div>
+                        <p class="text-cahaya-emasTerang text-xs font-semibold uppercase tracking-wide mb-1">✨ PKBM Celah Cahaya</p>
+                        <h1 class="text-xl font-bold opacity-90">Assalamualaikum,</h1>
+                        <p id="namaHeader" class="text-2xl font-extrabold text-white">Warga Belajar</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="toggleNotifikasi()" class="relative p-2.5 bg-white/10 rounded-full border border-cahaya-emas/30 backdrop-blur-md hover:bg-white/20 transition">
+                            <span class="text-lg leading-none">🔔</span>
+                            <span id="notifBadge" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-cahaya-malam shadow-md hidden animate-pulse">1</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="progress-container" class="mt-6 bg-white/10 backdrop-blur-sm rounded-2xl p-4 flex items-center shadow-inner border border-white/10">
+                    <div class="bg-gradient-to-br from-cahaya-emas to-yellow-600 h-12 w-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                        <span class="text-xl">🏮</span>
+                    </div>
+                    <div class="ml-4 flex-1">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <p class="text-xs text-gray-200 font-medium">Cahaya Ramadhanmu</p>
+                            <span class="text-xs font-bold text-cahaya-emasTerang">80%</span>
+                        </div>
+                        <div class="w-full bg-gray-800/50 rounded-full h-2.5 shadow-inner overflow-hidden">
+                            <div class="bg-gradient-to-r from-cahaya-emas to-yellow-400 h-2.5 rounded-full relative" style="width: 80%">
+                                <div class="absolute top-0 left-0 right-0 bottom-0 bg-white/20 animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="mx-6 mt-[-20px] relative z-10 bg-white p-4 rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-orange-100 p-2 rounded-xl text-xl">🌅</div>
+                    <div>
+                        <p class="text-[11px] text-gray-500 font-semibold uppercase tracking-wider">Menjelang Berbuka</p>
+                        <p class="font-bold text-base text-cahaya-malam">Maghrib: 18:00 WIB</p>
+                    </div>
+                </div>
+            </div>
+
+            <main class="p-6 flex-1">
+                
+                <section id="menu-warga" class="grid grid-cols-2 gap-4">
+                    <button onclick="alert('Kuis belum tersedia')" class="group flex flex-col items-center justify-center p-5 bg-white rounded-2xl shadow-sm border border-gray-100 hover:border-cahaya-emas/50 hover:shadow-md active:scale-95 transition-all">
+                        <div class="bg-blue-50 p-3 rounded-full mb-3 group-hover:bg-blue-100 transition-colors"><span class="text-2xl">🧠</span></div>
+                        <span class="font-bold text-sm text-gray-700">Kuis 7 Menit</span>
+                    </button>
+                    <button onclick="toggleFormSetor()" class="group flex flex-col items-center justify-center p-5 bg-gradient-to-b from-yellow-50 to-white rounded-2xl shadow-sm border border-cahaya-emas/30 hover:shadow-md active:scale-95 transition-all">
+                        <div class="bg-yellow-100 p-3 rounded-full mb-3 group-hover:bg-yellow-200 transition-colors"><span class="text-2xl">🤲</span></div>
+                        <span class="font-bold text-sm text-gray-700">Setor Ibadah</span>
+                    </button>
+                    <button onclick="keluar()" class="col-span-2 flex items-center justify-center p-3.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-xl border border-red-100 mt-2 transition-colors">
+                        <span class="mr-2">🚪</span> Keluar Aplikasi
+                    </button>
+                </section>
+
+                <section id="menu-admin" class="hidden grid grid-cols-1 gap-4">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-100 text-center shadow-sm">
+                        <span class="text-4xl block mb-3">👨‍🏫</span>
+                        <h3 class="font-bold text-lg text-blue-900">Mode Tutor / Admin</h3>
+                        <p class="text-sm text-blue-700 mt-2 leading-relaxed">Buka Google Sheets di komputer/laptop untuk melihat riwayat setoran & foto warga belajar secara lengkap.</p>
+                    </div>
+                    <button onclick="keluar()" class="flex items-center justify-center p-3.5 bg-red-50 hover:bg-red-100 text-red-600 font-semibold rounded-xl border border-red-100 transition-colors">
+                        <span class="mr-2">🚪</span> Keluar Akun
+                    </button>
+                </section>
+
+                <section id="form-setor-section" class="hidden mt-6 bg-white p-6 rounded-2xl shadow-lg border border-gray-100 border-t-4 border-t-cahaya-emas transition-all">
+                    <div class="flex justify-between items-center mb-5">
+                        <h2 class="font-bold text-lg text-gray-800 flex items-center gap-2">📝 <p>Formulir Kebaikan</p></h2>
+                        <button onclick="toggleFormSetor()" class="text-gray-400 hover:text-red-500 font-bold text-xl">&times;</button>
+                    </div>
+                    
+                    <form id="formSetorData">
+                        <input type="hidden" id="namaWargaForm" name="nama_warga">
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Pilih Kegiatan 🌟</label>
+                            <select name="pilihan_kegiatan" required class="w-full p-3.5 border border-gray-200 rounded-xl bg-gray-50 outline-none focus:ring-2 focus:ring-cahaya-emas focus:bg-white transition-all text-sm">
+                                <option value="">-- Pilih Amalan Hari Ini --</option>
+                                <option>Shalat 5 Waktu (5 Poin)</option>
+                                <option>Tarawih & Witir (5 Poin)</option>
+                                <option>Tadarus Al-Quran (10 Poin)</option>
+                                <option>Membantu Orang Tua (10 Poin)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Foto Bukti (Opsional) 📸</label>
+                            <input name="fileFoto" type="file" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-yellow-50 file:text-yellow-700 hover:file:bg-yellow-100 border border-gray-200 p-2 rounded-xl bg-gray-50">
+                        </div>
+
+                        <button type="submit" id="btnSubmitSetor" class="w-full bg-gradient-to-r from-cahaya-emas to-yellow-600 text-white font-bold py-3.5 rounded-xl hover:shadow-lg active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+                            Kirim Cahaya Kebaikan ✨
+                        </button>
+                    </form>
+                </section>
+            </main>
+
+            <footer class="mt-auto text-center pb-4">
+                <p class="text-[10px] text-gray-400 mb-2 uppercase tracking-widest font-semibold">Didukung Penuh Oleh</p>
+                <div class="flex justify-center items-center gap-4 opacity-70 grayscale bg-white p-3 mx-8 rounded-2xl border border-gray-100 shadow-sm">
+                    <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logokangruli.png" class="h-5">
+                    <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo_Komunitas_ngejah.png" class="h-5">
+                    <img src="https://raw.githubusercontent.com/ine94/ruang-cahaya-ramadhan/main/img/logo%20tbm%20aiueo.png" class="h-5">
+                </div>
+            </footer>
+        </div>
     </div>
 
-    <div id="notifModal" class="hidden fixed inset-0 z-50 bg-black/50 flex justify-center items-end transition-opacity">
-        <div class="bg-white w-full max-w-md rounded-t-3xl p-6 transform transition-transform">
-            <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h3 class="font-bold">🔔 Notifikasi</h3>
-                <button onclick="toggleNotifikasi()" class="text-2xl text-gray-500">&times;</button>
+    <div id="notifModal" class="hidden fixed inset-0 z-50 bg-cahaya-malam/60 backdrop-blur-sm flex justify-center items-end opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-md rounded-t-[2rem] p-6 transform translate-y-full transition-transform duration-300" id="notifContent">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
+                <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">🔔 Notifikasi</h3>
+                <button onclick="toggleNotifikasi()" class="bg-gray-100 hover:bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-gray-500 font-bold transition-colors">&times;</button>
             </div>
-            <div id="notifList" class="space-y-3 pb-4 text-sm"><div class="text-gray-400 text-center">Tidak ada notifikasi</div></div>
+            <div id="notifList" class="space-y-3 pb-6 max-h-[60vh] overflow-y-auto">
+                </div>
         </div>
     </div>
 
@@ -157,7 +222,8 @@
             const user = document.getElementById('loginUsername').value;
             const pin = document.getElementById('loginPin').value;
             
-            btn.textContent = "Memeriksa..."; btn.disabled = true;
+            btn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memeriksa...`;
+            btn.disabled = true;
 
             fetch(`${GOOGLE_SCRIPT_URL}?action=login&username=${user}&pin=${pin}`)
                 .then(res => res.json())
@@ -166,21 +232,33 @@
                         const userData = { nama: data.nama, role: data.role };
                         localStorage.setItem('userRC', JSON.stringify(userData));
                         masukKeAplikasi(userData);
-                    } else { alert(data.pesan); }
-                }).catch(err => alert("Terjadi kesalahan jaringan.")).finally(() => { btn.textContent = "Masuk"; btn.disabled = false; });
+                    } else { 
+                        alert(data.pesan); 
+                        btn.innerHTML = "Masuk"; 
+                        btn.disabled = false;
+                    }
+                })
+                .catch(err => {
+                    alert("Terjadi kesalahan jaringan.");
+                    btn.innerHTML = "Masuk"; 
+                    btn.disabled = false;
+                });
         });
 
         function masukKeAplikasi(user) {
             document.getElementById('login-container').classList.add('hidden');
             document.getElementById('app-container').classList.remove('hidden');
-            document.getElementById('namaHeader').textContent = user.nama;
-            document.getElementById('namaWargaForm').value = user.nama; // Isi otomatis form setor
+            document.getElementById('app-container').classList.add('flex'); // Kembalikan display flex
+            
+            // Format Nama: Huruf kapital di awal kata
+            const namaFormat = user.nama.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
+            document.getElementById('namaHeader').textContent = namaFormat;
+            document.getElementById('namaWargaForm').value = user.nama;
 
-            // Atur Menu Berdasarkan Role
             if (user.role === 'tutor' || user.role === 'admin') {
                 document.getElementById('menu-warga').classList.add('hidden');
                 document.getElementById('menu-admin').classList.remove('hidden');
-                document.getElementById('progress-container').classList.add('hidden'); // Sembunyikan progress bar untuk admin
+                document.getElementById('progress-container').classList.add('hidden'); 
             }
 
             periksaNotifikasi();
@@ -191,30 +269,57 @@
         // 2. SISTEM SETOR IBADAH
         function toggleFormSetor() {
             const form = document.getElementById('form-setor-section');
-            form.classList.toggle('hidden');
-            if(!form.classList.contains('hidden')) form.scrollIntoView({behavior: 'smooth'});
+            if(form.classList.contains('hidden')) {
+                form.classList.remove('hidden');
+                setTimeout(() => form.scrollIntoView({behavior: 'smooth', block: 'center'}), 100);
+            } else {
+                form.classList.add('hidden');
+            }
         }
 
         document.getElementById('formSetorData').addEventListener('submit', function(e) {
             e.preventDefault();
             const btn = document.getElementById('btnSubmitSetor');
-            btn.textContent = "Mengirim..."; btn.disabled = true;
+            btn.innerHTML = "Mengirim Data... ⏳"; 
+            btn.disabled = true;
 
             fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: new FormData(e.target) })
             .then(res => res.json())
             .then(data => {
                 if(data.result === "success") {
-                    alert(data.message);
+                    alert("✨ Alhamdulillah! " + data.message);
                     e.target.reset();
                     toggleFormSetor();
                 } else alert("Gagal: " + data.message);
-            }).catch(err => alert('Error pengiriman.')).finally(() => { btn.textContent = "Kirim Cahaya ✨"; btn.disabled = false; });
+            }).catch(err => alert('Error pengiriman jaringan.')).finally(() => { 
+                btn.innerHTML = "Kirim Cahaya Kebaikan ✨"; 
+                btn.disabled = false; 
+            });
         });
 
-        // 3. SISTEM NOTIFIKASI
+        // 3. SISTEM NOTIFIKASI DENGAN ANIMASI
+        const modal = document.getElementById('notifModal');
+        const modalContent = document.getElementById('notifContent');
+
         function toggleNotifikasi() {
-            document.getElementById('notifModal').classList.toggle('hidden');
-            document.getElementById('notifBadge').classList.add('hidden');
+            if (modal.classList.contains('hidden')) {
+                // Buka Modal
+                modal.classList.remove('hidden');
+                document.getElementById('notifBadge').classList.add('hidden');
+                // Trigger animasi masuk
+                setTimeout(() => {
+                    modal.classList.remove('opacity-0');
+                    modalContent.classList.remove('translate-y-full');
+                }, 10);
+            } else {
+                // Tutup Modal
+                modal.classList.add('opacity-0');
+                modalContent.classList.add('translate-y-full');
+                // Sembunyikan setelah animasi selesai
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
         }
 
         function periksaNotifikasi() {
@@ -222,10 +327,14 @@
             const notifList = document.getElementById('notifList');
             let html = '';
             
-            if (jam >= 16 && jam < 18) html += `<div class="p-3 bg-yellow-50 rounded-lg border border-yellow-200"><b>🧠 Kuis Dibuka!</b><br>Yuk kerjakan kuis sore ini.</div>`;
-            if (jam >= 18 && jam < 19) html += `<div class="p-3 bg-blue-50 rounded-lg border border-blue-200"><b>🌅 Alhamdulillah</b><br>Selamat berbuka puasa.</div>`;
+            if (jam >= 15 && jam < 18) {
+                html += `<div class="p-4 bg-yellow-50 rounded-xl border border-yellow-200 flex gap-3 shadow-sm"><div class="text-2xl">🧠</div><div><b class="text-yellow-800 text-sm">Kuis Sore Dibuka!</b><p class="text-xs text-gray-600 mt-1">Sambil ngabuburit, yuk kerjakan kuis hari ini.</p></div></div>`;
+            }
+            if (jam >= 18 && jam < 19) {
+                html += `<div class="p-4 bg-blue-50 rounded-xl border border-blue-200 flex gap-3 shadow-sm"><div class="text-2xl">🌅</div><div><b class="text-blue-800 text-sm">Alhamdulillah, Waktunya Berbuka</b><p class="text-xs text-gray-600 mt-1">Selamat berbuka puasa. Jangan lupa shalat Maghrib ya!</p></div></div>`;
+            }
             
-            html += `<div class="p-3 bg-gray-50 rounded-lg border border-gray-200"><b>📢 Info</b><br>Kumpulkan poin sebanyak-banyaknya!</div>`;
+            html += `<div class="p-4 bg-gray-50 rounded-xl border border-gray-200 flex gap-3 shadow-sm"><div class="text-2xl">📢</div><div><b class="text-gray-800 text-sm">Info Poin Kebaikan</b><p class="text-xs text-gray-600 mt-1">Kumpulkan poin sebanyak-banyaknya di bulan penuh rahmat ini.</p></div></div>`;
             
             notifList.innerHTML = html;
             document.getElementById('notifBadge').classList.remove('hidden');
